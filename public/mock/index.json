@@ -1,0 +1,101 @@
+{
+  "ret": true,
+  "data": {
+    "city": "AU",
+    "bannerData": [{
+        "id": "0001",
+        "name": "Hot",
+        "imgUrl": "https://cdn.fishingsir.com/media/ipbanners/11.11_fishing_reel_.jpg",
+        "link": "http://www.baidu.com"
+      }, {
+        "id": "0002",
+        "name": "New",
+        "imgUrl": "https://cdn.fishingsir.com/media/ipbanners/fishingsir_new_arrival.jpg",
+        "link": ""
+      }],
+    "menuList": [{
+        "id": "0001",
+        "name": "Hot asasas aaaa",
+        "imgUrl": "&#xe609;",
+        "link": "http://www.baidu.com"
+      }, {
+        "id": "0002",
+        "name": "New",
+        "imgUrl": "&#xe608;",
+        "link": ""
+      }, {
+        "id": "0003",
+        "name": "New",
+        "imgUrl": "&#xe607;",
+        "link": ""
+      }, {
+        "id": "0004",
+        "name": "New",
+        "imgUrl": "&#xe606;",
+        "link": ""
+      }, {
+        "id": "0005",
+        "name": "New",
+        "imgUrl": "&#xe606;",
+        "link": ""
+      }, {
+        "id": "0006",
+        "name": "New",
+        "imgUrl": "&#xe606;",
+        "link": ""
+      }, {
+        "id": "0007",
+        "name": "New",
+        "imgUrl": "&#xe606;",
+        "link": ""
+      }, {
+        "id": "0008",
+        "name": "New",
+        "imgUrl": "&#xe606;",
+        "link": ""
+      }, {
+        "id": "0009",
+        "name": "New",
+        "imgUrl": "&#xe606;",
+        "link": ""
+      }],
+    "recommendList": [{
+        "id": "0001",
+        "title": "Fishing Rod",
+        "desc": "Some Discription text of this",
+        "imgUrl": "https://cdn.fishingsir.com/media/ipbanners/11.11_fishing_reel_.jpg",
+        "link": "http://www.baidu.com"
+      }, {
+        "id": "0002",
+        "title": "Fishing Reel",
+        "desc": "Some Discription text of this",
+        "imgUrl": "https://cdn.fishingsir.com/media/ipbanners/11.11_fishing_reel_.jpg",
+        "link": "http://www.baidu.com"
+      }, {
+        "id": "0003",
+        "title": "Fishing Reel",
+        "desc": "Some Discription text of this",
+        "imgUrl": "https://cdn.fishingsir.com/media/ipbanners/11.11_fishing_reel_.jpg",
+        "link": "http://www.baidu.com"
+      }],
+    "weekendList": [{
+        "id": "0001",
+        "title": "Fishing Rod",
+        "desc": "Some Discription text of this",
+        "imgUrl": "https://cdn.fishingsir.com/media/ipbanners/11.11_fishing_reel_.jpg",
+        "link": "http://www.baidu.com"
+      }, {
+        "id": "0002",
+        "title": "Fishing Reel",
+        "desc": "Some Discription text of this",
+        "imgUrl": "https://cdn.fishingsir.com/media/ipbanners/11.11_fishing_reel_.jpg",
+        "link": "http://www.baidu.com"
+      }, {
+        "id": "0003",
+        "title": "Fishing Reel",
+        "desc": "Some Discription text of this",
+        "imgUrl": "https://cdn.fishingsir.com/media/ipbanners/11.11_fishing_reel_.jpg",
+        "link": "http://www.baidu.com"
+      }]
+  }
+}
