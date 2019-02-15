@@ -29,7 +29,7 @@ const routers = new VueRouter({
         path: '/',
         component: Home,
         name: '用户管理',
-        iconCls: 'el-icon-message',//图标样式class
+        iconCls: 'el-icon--user',//图标样式class
         children: [
         	{ 
         		path: '/table', 

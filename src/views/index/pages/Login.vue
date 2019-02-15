@@ -53,23 +53,24 @@
             this.logining = true
             var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass }
             
-            // requestLogin(loginParams).then(data => {
-            //   this.logining = false;
-            //   console.log(data)
-            //   //NProgress.done();
-            //   let { msg, code, user } = data;
-            //   if (code !== 200) {
-            //     this.$message({
-            //       message: msg,
-            //       type: 'error'
-            //     });
-            //   } else {
-            //     sessionStorage.setItem('user', JSON.stringify(user));
-            //     this.$router.push({ path: '/table' });
-            //   }
-            // });
-            sessionStorage.setItem('user', JSON.stringify({"id":1,"username":"admin","avatar":"https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png","name":"张某某"}))
-            this.$router.push({ path: '/table' })
+            requestLogin(loginParams).then(data => {
+              this.logining = false;
+              console.log(data)
+              //NProgress.done();
+              let { msg, code, user } = data;
+              if (code !== 200) {
+                this.$message({
+                  message: msg,
+                  type: 'error'
+                });
+              } else {
+                sessionStorage.setItem('user', JSON.stringify(user));
+                this.$router.push({ path: '/table' });
+              }
+            });
+            //不模拟请求直接跳转
+            //sessionStorage.setItem('user', JSON.stringify({"id":1,"username":"admin","avatar":"https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png","name":"张某某"}))
+            //this.$router.push({ path: '/table' })
           } else {
             console.log('error submit!!');
             return false;

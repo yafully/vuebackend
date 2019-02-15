@@ -9,9 +9,12 @@ import router from '../../route/index/'
 import ElementUI from 'element-ui'
 import IndexPage from './IndexPage'
 import locale from 'element-ui/lib/locale/lang/en'
+import Mock from '../../mock'
 import 'element-ui/lib/theme-chalk/index.css'
+import '@/assets/less/common.less'
 Vue.use(ElementUI, { locale })
 Vue.use(require('vue-wechat-title'))
+Mock.bootstrap();
 
 //获取来路判断session前置跳转页面
 router.beforeEach((to, from, next) => {
@@ -19,8 +22,7 @@ router.beforeEach((to, from, next) => {
   if (to.path == '/login') {
     sessionStorage.removeItem('user');
   }
-  let user = JSON.parse(sessionStorage.getItem('user'));
-  console.log(to.path)
+  let user = JSON.parse(sessionStorage.getItem('user'))
   if (!user && to.path != '/login') {
     next({ path: '/login' })
   } else {

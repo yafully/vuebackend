@@ -5,15 +5,19 @@
           系统管理
         </el-header>
         <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect" unique-opened router :collapse="collapsed">
-          <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
-            <el-submenu :index="index+''" v-if="!item.leaf">
+          <template v-for="(item,index) in $router.options.routes">
+            <el-submenu :index="index+''" v-if="!item.leaf && !item.hidden" :key="'ms'+index">
               <template slot="title">
                 <i :class="item.iconCls"></i>
                 <span class="menu-title" v-text="item.name"></span>
               </template>
-              <el-menu-item v-for="child in item.children" :index="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
+              <el-menu-item v-for="(child, inx) in item.children" v-bind:key="'msi'+inx" :index="child.path">
+                <span v-if="!child.hidden">{{child.name}}</span>
+              </el-menu-item>
             </el-submenu>
-            <el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
+            <el-menu-item v-if="item.leaf&&item.children.length>0 && !item.hidden" :index="item.children[0].path" :key="'mi'+index">
+              <i :class="item.iconCls"></i>{{item.children[0].name}}
+            </el-menu-item>
           </template>
         </el-menu>
       </el-aside>
@@ -28,7 +32,7 @@
                   </el-col>
                   <el-col :span="12" class="breadcrumb-inner">
                     <el-breadcrumb separator="/">
-                      <el-breadcrumb-item v-for="item in $route.matched">
+                      <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="'bread'+index">
                         {{ item.name }}
                       </el-breadcrumb-item>
                     </el-breadcrumb>
@@ -109,6 +113,7 @@
       },
       mounted () {
         //console.log(this.$router.options.routes)
+        //console.log(this.$route.matched)
         //获取UserInfo
         var user = sessionStorage.getItem('user')
         if (user) {
