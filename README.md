@@ -4,12 +4,18 @@ Vue‘s Backend Personal
     webpack
       |---dist 
       |---public 公共文件
-        |---mock 模拟数据
+        |---mock 静态模拟数据
       |---src
         |---api 数据接口
         |---assets 资源
+          |---css
+          |---fonts
+          |---images
+          |---less
         |---common 公共模块目录
         |---components组件
+        |---mock动态数据模拟接口
+          |---data 模拟数据
         |---views各个模块
           |---index    index模块
             |---pages 组件
