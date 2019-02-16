@@ -34,7 +34,7 @@ const routers = new VueRouter({
         	{ 
         		path: '/table', 
         		component: Table, 
-        		name: 'Table',
+        		name: '用户列表',
 		        meta: {
 			        title: '用户管理'
 			    } 

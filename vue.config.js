@@ -115,6 +115,7 @@ module.exports = {
   	config.resolve.alias.set('@css', resolve('src/assets/css'))
   	config.resolve.alias.set('@img', resolve('src/assets/images'))
     config.resolve.alias.set('@api', resolve('src/api'))
+    config.resolve.alias.set('@common', resolve('src/common'))
   },
 
   configureWebpack: () => {}, // CSS 相关选项
