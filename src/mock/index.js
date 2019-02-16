@@ -7,8 +7,11 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import { LoginUsers, Users } from './data/user'//用户数据
-let _Users = Users
 
+//const Telephone = () => import('./data/telephone')
+import { Telephone } from './data/telephone';
+let _Users = Users
+let _Telephone = Telephone
 export default {
 	bootstrap () {
 		let mock = new MockAdapter(axios)
@@ -150,5 +153,36 @@ export default {
 	      })
 	    })
 
+		// 获取联系我们列表
+		mock.onGet('/telephone/list').reply(config => {
+		  let {page, name} = config.params
+	      let mockTel = _Telephone.filter(telephone => {
+	        if (name && telephone.name.indexOf(name) == -1) return false
+	        return true
+	      });
+	      let total = mockTel.length;
+	      mockTel = mockTel.filter((u, index) => index < 20 * page && index >= 20 * (page - 1))
+	      return new Promise((resolve, reject) => {
+	        setTimeout(() => {
+	          resolve([200, {
+	            total: total,
+	            telephones: mockTel
+	          }]);
+	        }, 1000);
+	      })
+		})
+		//联系我们删除
+	    mock.onGet('/telephone/remove').reply(config => {
+	      let { id } = config.params
+	      _Telephone = _Telephone.filter(u => u.id !== id)
+	      return new Promise((resolve, reject) => {
+	        setTimeout(() => {
+	          resolve([200, {
+	            code: 200,
+	            msg: '删除成功'
+	          }])
+	        }, 500)
+	      })
+	    })
 	}
 }

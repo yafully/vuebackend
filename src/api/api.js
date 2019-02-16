@@ -17,3 +17,7 @@ export const removeUser = params => { return axios.get(`${base}/user/remove`, { 
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params })}
 //用户批量删除
 export const batchRemoveUser = params => { return axios.get(`${base}/user/batchremove`, { params: params })}
+//联系我们
+export const getTelephone = params=>{return axios.get(`${base}/telephone/list`, {params:params})}
+//联系我们删除
+export const removeTelephone = params => { return axios.get(`${base}/telephone/remove`, { params: params })}

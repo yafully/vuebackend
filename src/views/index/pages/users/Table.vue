@@ -15,10 +15,13 @@
 				<el-form-item>
 					<el-button type="primary" icon="el-icon-refresh" @click="handleCurrentChange(1,true)">清除</el-button>
 				</el-form-item>
+				<el-form-item>
+					<el-button type="primary" @click="toggleSelection([users[1], users[2]])">自定义选中2-3</el-button>
+				</el-form-item>
 			</el-form>
 		</el-col>
 		<!--列表-->
-		<el-table :data="users" @selection-change="selsChange" highlight-current-row v-loading="listLoading" style="width: 100%;">
+		<el-table :data="users" @selection-change="selsChange" highlight-current-row v-loading="listLoading" style="width: 100%;" ref="multipleTable">
 			<el-table-column type="selection" width="55">
 			</el-table-column>
 			<el-table-column type="index" width="60">
@@ -29,7 +32,11 @@
 			</el-table-column>
 			<el-table-column prop="age" label="年龄" width="100" sortable>
 			</el-table-column>
-			<el-table-column prop="birth" label="生日" width="120" sortable>
+			<el-table-column label="生日" width="180" sortable>
+				<template slot-scope="scope">
+			        <i class="el-icon-time"></i>
+			        <span style="margin-left: 10px">{{ scope.row.birth }}</span>
+			      </template>
 			</el-table-column>
 			<el-table-column prop="addr" label="地址" min-width="180" sortable>
 			</el-table-column>
@@ -301,7 +308,16 @@ export default {
 			}).catch(() => {
 
 			})
-		}
+		},
+		toggleSelection (rows) {
+	      if (rows) {
+	        rows.forEach(row => {
+	          this.$refs.multipleTable.toggleRowSelection(row);
+	        });
+	      } else {
+	        this.$refs.multipleTable.clearSelection();
+	      }
+	    }
 	},
 	mounted () {
 		this.getUsers()

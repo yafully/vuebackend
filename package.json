@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "echarts": "^4.1.0",
     "element-ui": "^2.4.5",
+    "sortablejs": "^1.8.3",
     "vue": "^2.5.22",
     "vue-router": "^3.0.2",
     "vue-wechat-title": "^2.0.5"

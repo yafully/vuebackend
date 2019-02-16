@@ -1,8 +1,8 @@
 <template>
     <el-container v-wechat-title="$route.meta.title">
       <el-aside :class="collapsed?'menu-collapsed':'menu-expanded'">
-        <el-header height="40px" class="header-left">
-          系统管理
+        <el-header height="40px" class="header-left" v-text="collapsed ? `Logo` : `系统管理`">
+
         </el-header>
         <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect" unique-opened router :collapse="collapsed">
           <template v-for="(item,index) in $router.options.routes">
@@ -12,6 +12,7 @@
                 <span class="menu-title" v-text="item.name"></span>
               </template>
               <el-menu-item v-for="(child, inx) in item.children" v-bind:key="'msi'+inx" :index="child.path">
+                <i :class="child.iconCls"></i>
                 <span v-if="!child.hidden">{{child.name}}</span>
               </el-menu-item>
             </el-submenu>
@@ -39,7 +40,12 @@
                   </el-col>
                 </el-row>
             </el-col>
+
             <el-col :span="12" class="userinfo">
+              <el-tooltip class="item" effect="dark" :content="fullscreenTip" placement="bottom">
+                <i :class="[isfullScreen ? 'el-icon-icon-fullscreen' : 'el-icon-icon-normal']" @click="fullScreen"></i>
+              </el-tooltip>
+
               <el-dropdown trigger="hover">
                 <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
                 <el-dropdown-menu slot="dropdown">
@@ -60,81 +66,116 @@
 </template>
 
 <script>
-    export default {
-      name: 'Home',
-      data () {
-        return {
-          collapsed:false,
-          sysUserName: '',
-          sysUserAvatar: ''
+  export default {
+    name: 'Home',
+    data () {
+      return {
+        isfullScreen: true,
+        collapsed:false,
+        sysUserName: '',
+        sysUserAvatar: ''
+      }
+    },
+    computed: {
+      fullscreenTip () {
+        return this.isfullScreen ? '全屏' : '退出全屏'
+      }
+    },
+    methods: {
+      fullScreen (e) {
+        let elem = e.target
+        if (this.isfullScreen) {
+          var docElm = document.documentElement
+          if (docElm.requestFullscreen) {
+            docElm.requestFullscreen()
+          } else if (docElm.mozRequestFullScreen) {
+            docElm.mozRequestFullScreen()
+          } else if (docElm.webkitRequestFullScreen) {
+            docElm.webkitRequestFullScreen()
+          } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen()
+          }
+          this.isfullScreen = false
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen()
+          } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen()
+          } else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen()
+          } else if (document.msExitFullscreen) {
+            document.msExitFullscreen()
+          }
+          this.isfullScreen = true
         }
       },
-      methods: {
-        open () {
-          this.$alert('这是一段内容', '标题名称', {
-            confirmButtonText: '确定',
-            customClass: 'abc',
-            callback: action => {
-              this.$message({
-                type: 'info',
-                message: `action: ${ action }`
-              });
-            }
-          });
-        },
-        logout () {
-          var _this = this;
-          this.$confirm('确认退出吗?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            customClass: 'abc',
-            type: 'warning'
-          }).then(() => {
-            sessionStorage.removeItem('user')
-            _this.$router.push('/login')
-          }).catch(() => {
+      open () {
+        this.$alert('这是一段内容', '标题名称', {
+          confirmButtonText: '确定',
+          customClass: 'abc',
+          callback: action => {
+            this.$message({
+              type: 'info',
+              message: `action: ${ action }`
+            });
+          }
+        });
+      },
+      logout () {
+        var _this = this;
+        this.$confirm('确认退出吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          customClass: 'abc',
+          type: 'warning'
+        }).then(() => {
+          sessionStorage.removeItem('user')
+          _this.$router.push('/login')
+        }).catch(() => {
 
-          });
-        },
-        //折叠导航栏
-        collapse () {
-          this.collapsed=!this.collapsed
-        },
-        handleopen() {
-          //console.log('handleopen');
-        },
-        handleclose() {
-          //console.log('handleclose');
-        },
-        handleselect (a, b) {
-          console.log(a)
-          console.log(b)
-        }
+        });
       },
-      mounted () {
-        //console.log(this.$router.options.routes)
-        //console.log(this.$route.matched)
-        //获取UserInfo
-        var user = sessionStorage.getItem('user')
-        if (user) {
-          user = JSON.parse(user)
-          this.sysUserName = user.name || ''
-          this.sysUserAvatar = user.avatar || ''
-        }
+      //折叠导航栏
+      collapse () {
+        this.collapsed=!this.collapsed
+      },
+      handleopen() {
+        //console.log('handleopen');
+      },
+      handleclose() {
+        //console.log('handleclose');
+      },
+      handleselect (a, b) {
+        console.log(a)
+        console.log(b)
+      }
+    },
+    mounted () {
+      //console.log(this.$router.options.routes)
+      //console.log(this.$route.matched)
+      //获取UserInfo
+      var user = sessionStorage.getItem('user')
+      if (user) {
+        user = JSON.parse(user)
+        this.sysUserName = user.name || ''
+        this.sysUserAvatar = user.avatar || ''
       }
     }
+  }
 </script>
-<style lang="scss">
+<style lang="less">
   .abc{max-width:300px}
   .el-container{
     height: 100%;
     position: relative;
     z-index: 2;
   }
-  .el-header{
-    background:#000;
-    color:#fff;
-    height:40px;
+  .main{
+    .el-header{
+      background:#000;
+      color:#fff;
+      height:40px;padding:0;
+    }
   }
   .header-left{line-height:40px;text-align:center;}
   .menu-call{text-align:center;}
@@ -153,7 +194,7 @@
   .menu-collapsed{
     flex:0 0 64px;
     width: 64px;
-    .header-left{width:0;height:0;overflow:hidden;visibility:hidden;}
+    //.header-left{padding:0;width:0;height:0;overflow:hidden;visibility:hidden;}
   }
   .menu-expanded{
     flex:0 0 230px;
