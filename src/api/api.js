@@ -7,6 +7,8 @@ import axios from 'axios'
 let base = ''
 //用户登录
 export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data)}
+//鉴权
+export const getRole = params => { return axios.get(`${base}/role`, { params: params })}
 //用户列表
 export const getUserListPage = params => { return axios.get(`${base}/user/listpage`, { params: params })}
 //用户编辑

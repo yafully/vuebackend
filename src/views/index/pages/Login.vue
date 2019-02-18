@@ -25,7 +25,7 @@
       return {
         logining: false,
         ruleForm2: {
-          account: 'admin',
+          account: 'super',
           checkPass: '123456'
         },
         rules2: {
@@ -55,17 +55,45 @@
             
             requestLogin(loginParams).then(data => {
               this.logining = false;
-              console.log(data)
-              //NProgress.done();
-              let { msg, code, user } = data;
+              //console.log(data)
+              let { msg, code, user } = data
+              let self = this 
+              async function setUserKey (user) {
+                //await self.$store.dispatch('setRole', {"role": user.role, "permissions": user.permissions})
+                await self.$store.dispatch('setToken', user)
+                //JSON.stringify({"username": user.username, "role": user.role, "permissions": user.permissions})
+              }
+
               if (code !== 200) {
                 this.$message({
                   message: msg,
                   type: 'error'
                 });
               } else {
-                sessionStorage.setItem('user', JSON.stringify(user));
-                this.$router.push({ path: '/userlist' });
+                //sessionStorage.setItem('user', JSON.stringify(user));
+                //this.$router.push({ path: '/index' });
+                //console.log(user.username)
+                setUserKey(user).then(() =>{
+                  //location.reload()
+                  this.$router.push({ path: '/index' })
+                }).catch(res => {
+                  this.$message({
+                    showClose: true,
+                    message: res,
+                    type: 'error'
+                  })
+                })
+
+                // this.$store.dispatch('setToken', user.username)
+                // .then(() => {
+                //   this.$router.push({ path: '/index' });
+                // }).catch(res => {
+                //   this.$message({
+                //     showClose: true,
+                //     message: res,
+                //     type: 'error'
+                //   })
+                // })
               }
             });
             //不模拟请求直接跳转
@@ -77,6 +105,9 @@
           }
         });
       }
+    },
+    mounted () {
+      //console.log(store.getters.token)
     }
   }
 

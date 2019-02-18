@@ -5,7 +5,7 @@
 
         </el-header>
         <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect" unique-opened router :collapse="collapsed">
-          <template v-for="(item,index) in $router.options.routes">
+          <template v-for="(item,index) in routers">
             <el-submenu :index="index+''" v-if="!item.leaf && !item.hidden" :key="'ms'+index">
               <template slot="title">
                 <i :class="item.iconCls"></i>
@@ -66,6 +66,9 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+  import Cookies from 'js-cookie'
+  import store from '@/vuex'
   export default {
     name: 'Home',
     data () {
@@ -79,7 +82,8 @@
     computed: {
       fullscreenTip () {
         return this.isfullScreen ? '全屏' : '退出全屏'
-      }
+      },
+      ...mapGetters(['routers']) //展开vuex里面的getter对象内的routers渲染菜单
     },
     methods: {
       fullScreen (e) {
@@ -129,7 +133,12 @@
           customClass: 'abc',
           type: 'warning'
         }).then(() => {
-          sessionStorage.removeItem('user')
+          //sessionStorage.removeItem('user')
+          //_this.$router.push('/login')
+          store.dispatch('setToken', null)
+          console.log(store.getters.token)
+          
+          //location.reload()
           _this.$router.push('/login')
         }).catch(() => {
 
@@ -151,6 +160,10 @@
       }
     },
     mounted () {
+      // console.log(this.routers)
+      // console.log(11111)
+      //console.log(store.getters.routers)
+      //console.log(this.$store.state.routers)
       //console.log(this.$router.options.routes)
       //console.log(this.$route.matched)
       //获取UserInfo

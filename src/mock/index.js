@@ -50,6 +50,22 @@ export default {
 	      })
 	    })
 
+	    //菜单鉴权
+	    mock.onGet('/role').reply(config => {
+	      let {name} = config.params
+	      let roleUsers = LoginUsers.filter(user => {
+	        return user.username === name
+	      })
+	      return new Promise((resolve, reject) => {
+	        setTimeout(() => {
+	          resolve([200, {
+	            role: roleUsers[0].role,
+	            permissions: roleUsers[0].permissions
+	          }])
+	        }, 1000)
+	      })
+	    })
+
 	    //用户列表
 	    //获取用户列表
 	    mock.onGet('/user/list').reply(config => {
