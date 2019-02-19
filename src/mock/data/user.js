@@ -7,7 +7,7 @@ const LoginUsers = [
     role: 'admin',
     permissions: '管理员',
     avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
-    name: '管理员'
+    name: 'Normal Star'
   },
   {
     id: 10002,
@@ -16,7 +16,7 @@ const LoginUsers = [
     role: 'superAdmin',
     permissions: '超级管理员',
     avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
-    name: '超级管理员'
+    name: 'Super Star'
   }
 ];
 

@@ -10,15 +10,20 @@ import VueRouter from 'vue-router'
 import Layout from '@/views/index/pages/'
 import Login from '@/views/index/pages/Login'
 import HomeMain from '@/views/index/pages/home/'
-
+//用户管理
 const Table = () => import('@/views/index/pages/users/Table')
 const Contacts = () => import('@/views/index/pages/users/Contacts')
 const Echarts = () => import('@/views/index/pages/users/Echarts')
 const DragTable = () => import('@/views/index/pages/users/DragTable')
+//权限管理
+const RolePage = () => import('@/views/index/pages/role/RolePage')
+const Featrues = () => import('@/views/index/pages/role/Featrues')
+
 Vue.use(VueRouter)
 
 let defaultRouter = [
-  { path: '/',
+  { 
+    path: '/',
     redirect: '/index',
     hidden: true,
     children: []
@@ -49,22 +54,29 @@ let defaultRouter = [
 
 let addRouter = [
     {
+        id: 'f1000',
         path: '/',
         component: Layout,
         name: '用户管理',
         iconCls: 'el-icon--user',//图标样式class
+        meta: {
+            role: ['superAdmin', 'admin'],
+            title: '用户管理'
+        },
         children: [
-            { 
+            {
+                id: 'f1001',
                 path: '/userlist', 
                 component: Table, 
                 name: '用户列表',
                 iconCls: 'el-icon-users',
                 meta: {
                     role: ['superAdmin', 'admin'],
-                    title: '用户管理'
+                    title: '用户列表'
                 } 
             },
             { 
+                id: 'f1002',
                 path: '/contacts', 
                 component: Contacts, 
                 name: '联系我们',
@@ -75,6 +87,7 @@ let addRouter = [
                 } 
             },
             { 
+                id: 'f1003',
                 path: '/usersort', 
                 component: DragTable, 
                 name: '用户排序',
@@ -85,6 +98,7 @@ let addRouter = [
                 } 
             },
             { 
+                id: 'f1004',
                 path: '/statistics', 
                 component: Echarts, 
                 name: '用户统计',
@@ -92,6 +106,40 @@ let addRouter = [
                 meta: {
                     role: ['superAdmin', 'admin'],
                     title: '用户统计'
+                } 
+            }
+        ]
+    },
+    {
+        id: 'f2000',
+        path: '/',
+        component: Layout,
+        name: '权限管理',
+        iconCls: 'el-icon-featrues',//图标样式class
+        meta: {
+            role: ['superAdmin'],
+        },
+        children: [
+            { 
+                id: 'f2001',
+                path: '/editrole', 
+                component: RolePage, 
+                name: '角色管理',
+                iconCls: 'el-icon-role',
+                meta: {
+                    role: ['superAdmin'],
+                    title: '角色管理'
+                } 
+            },
+            { 
+                id: 'f2002',
+                path: '/featrues', 
+                component: Featrues, 
+                name: '功能权限',
+                iconCls: 'el-icon-tree',
+                meta: {
+                    role: ['superAdmin'],
+                    title: '功能权限'
                 } 
             }
         ]

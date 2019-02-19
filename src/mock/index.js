@@ -60,7 +60,10 @@ export default {
 	        setTimeout(() => {
 	          resolve([200, {
 	            role: roleUsers[0].role,
-	            permissions: roleUsers[0].permissions
+	            permissions: roleUsers[0].permissions,
+	            avatar: roleUsers[0].avatar,
+	            name: roleUsers[0].name,
+	            id: roleUsers[0].id
 	          }])
 	        }, 1000)
 	      })

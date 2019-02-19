@@ -168,7 +168,8 @@
       //console.log(this.$router.options.routes)
       //console.log(this.$route.matched)
       //获取UserInfo
-      var user = sessionStorage.getItem('user')
+      
+      var user = sessionStorage.getItem('info')
       if (user) {
         user = JSON.parse(user)
         this.sysUserName = user.name || ''
