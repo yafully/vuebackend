@@ -57,6 +57,7 @@ npm run serve
 ```
 Backend  
 http://localhost:8888/project/#/login  
+[User:test 123456][User:super 123456]
 Frontend  
 http://localhost:8888/project/about.html
 ```
