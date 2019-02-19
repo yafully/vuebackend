@@ -53,3 +53,10 @@ npm install
 ```
 npm run serve
 ```
+### See demo at 
+```
+Backend  
+http://localhost:8888/project/#/login  
+Frontend  
+http://localhost:8888/project/about.html
+```
