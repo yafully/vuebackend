@@ -1,4 +1,5 @@
-import {defaultRouter, addRouter} from '@/route/index'
+import store from '../index'
+import {router, defaultRouter, addRouter} from '@/route/index'
 
 const routerData = {
   state: {
@@ -31,7 +32,6 @@ const routerData = {
       let newArr = [...addRouter]
       eachSelect(newArr, role)
       commit('setRouters', newArr)
-
       // 正式开发
       // eachSelect(addRouter, role)
       // commit('setRouters', addRouter)

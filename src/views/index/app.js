@@ -10,6 +10,7 @@ import router from '../../route/index/'
 import ElementUI from 'element-ui'
 import IndexPage from './IndexPage'
 import locale from 'element-ui/lib/locale/lang/en'
+import { getRole } from '@api/api'
 import Mock from '../../mock'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/less/common.less'
@@ -20,8 +21,8 @@ Mock.bootstrap();
 
 //获取来路判断session前置跳转页面
 router.beforeEach((to, from, next) => {
-  console.log(store.getters.token)
-  console.log(store.state.token)
+  // console.log(store.getters.token)
+  // console.log(store.state.token)
   if (store.getters.token) {
     //console.log(JSON.parse(sessionStorage.getItem('myrole')))
     //store.dispatch('setToken', store.getters.token)
@@ -44,13 +45,24 @@ router.beforeEach((to, from, next) => {
   async function getAddRouters () {
     // console.log(store.getters.token)
     // console.log(store.state.token)
-    await store.dispatch('getInfo', store.getters.token)
+    await Role()
+    let userinfo = JSON.parse(sessionStorage.getItem('info'))
+    await store.dispatch('getInfo', userinfo)
+    console.log(store.getters.token)
+    console.log(store.getters.info.role)
     await store.dispatch('newRoutes', store.getters.info.role)
-    //console.log(store.getters.addRouters)
     await router.addRoutes(store.getters.addRouters)
-    // console.log(store.getters.info.role)
-    // console.log(store.getters.addRouters)
     next({path: '/index'})
+  }
+
+  function Role () {
+    let para = {
+      name: store.getters.token
+    }
+    getRole(para).then((res) => {
+      sessionStorage.setItem('info', JSON.stringify(res.data))
+      //console.log(sessionStorage.getItem('info'))
+    })
   }
   // if (to.path == '/login') {
   //   sessionStorage.removeItem('user');

@@ -136,10 +136,11 @@
           //sessionStorage.removeItem('user')
           //_this.$router.push('/login')
           store.dispatch('setToken', null)
-          console.log(store.getters.token)
+          store.dispatch('getInfo', false)
+          //console.log(store.getters.token)
           
-          //location.reload()
-          _this.$router.push('/login')
+          location.reload()//必须要reload否则会有很多奇怪的bug大坑一个
+          //_this.$router.push('/login')
         }).catch(() => {
 
         });

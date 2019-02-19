@@ -16,16 +16,15 @@ const store = new Vuex.Store({
   },
   mutations: {
     setToken (state, token) {
-    	console.log(token)
 		if (token) {
 			state.token = token.username
 			Cookies.set('token', token.username ,{ expires: 1/24 })
-			sessionStorage.setItem('myrole', JSON.stringify(token))
+			sessionStorage.setItem('info', JSON.stringify(token))
 			//console.log(1111)
 		} else {
 			state.token = null
 			Cookies.remove('token')
-			sessionStorage.removeItem('myrole')
+			sessionStorage.removeItem('info')
 		}
 		//console.log(state.token)
     }

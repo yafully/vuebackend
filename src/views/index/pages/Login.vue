@@ -58,11 +58,9 @@
               //console.log(data)
               let { msg, code, user } = data
               let self = this 
-              async function setUserKey (user) {
-                //await self.$store.dispatch('setRole', {"role": user.role, "permissions": user.permissions})
-                await self.$store.dispatch('setToken', user)
-                //JSON.stringify({"username": user.username, "role": user.role, "permissions": user.permissions})
-              }
+              // async function setUserKey (user) {
+              //   await self.$store.dispatch('setToken', user.username)
+              // }
 
               if (code !== 200) {
                 this.$message({
@@ -73,20 +71,19 @@
                 //sessionStorage.setItem('user', JSON.stringify(user));
                 //this.$router.push({ path: '/index' });
                 //console.log(user.username)
-                setUserKey(user).then(() =>{
-                  //location.reload()
-                  this.$router.push({ path: '/index' })
+                self.$store.dispatch('setToken', user).then(() => {
+                  self.$router.push({path: '/index'})
                 }).catch(res => {
-                  this.$message({
+                  self.$message({
                     showClose: true,
                     message: res,
                     type: 'error'
                   })
                 })
 
-                // this.$store.dispatch('setToken', user.username)
-                // .then(() => {
-                //   this.$router.push({ path: '/index' });
+                // setUserKey(user).then(() =>{
+                //   //location.reload()
+                //   this.$router.push({ path: '/index' })
                 // }).catch(res => {
                 //   this.$message({
                 //     showClose: true,
@@ -94,6 +91,7 @@
                 //     type: 'error'
                 //   })
                 // })
+
               }
             });
             //不模拟请求直接跳转
