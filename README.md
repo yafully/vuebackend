@@ -1,6 +1,15 @@
 # vuebackend
 Vue‘s Backend and Frontend Personal  
-If you find it useful, please start ~
+基于VueCli3的Vue全家桶 + Element UI + Echarts 多页面多路由前+后端脚手架  
+数据由MockJS模拟  
+各页面入口文件为app.js,模版文件为view下面各模块文件夹内的任意html文件
+# Featrues
+动态鉴权构建菜单
+# Todo
+权限管理
+富文本编辑器
+
+If you find it useful, please start this project ~
 ```
     webpack
       |---dist 
@@ -31,6 +40,9 @@ If you find it useful, please start ~
             |---index.html 页面模板
           |---error       error404模块
             |---index.vue
+         |---vuex    
+           |---role 角色状态
+           |---router 路由状态
 ```
 ## Project setup
 ```
