@@ -7,11 +7,12 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import { LoginUsers, Users } from './data/user'//用户数据
-
+import { Roles } from './data/role'//角色数据
 //const Telephone = () => import('./data/telephone')
 import { Telephone } from './data/telephone';
 let _Users = Users
 let _Telephone = Telephone
+let _Roles = Roles
 export default {
 	bootstrap () {
 		let mock = new MockAdapter(axios)
@@ -194,6 +195,70 @@ export default {
 	    mock.onGet('/telephone/remove').reply(config => {
 	      let { id } = config.params
 	      _Telephone = _Telephone.filter(u => u.id !== id)
+	      return new Promise((resolve, reject) => {
+	        setTimeout(() => {
+	          resolve([200, {
+	            code: 200,
+	            msg: '删除成功'
+	          }])
+	        }, 500)
+	      })
+	    })
+
+	    //获取用户列表（分页）
+	    mock.onGet('/role/listpage').reply(config => {
+	      let {page} = config.params
+
+	      let total = _Roles.length;
+	      let mockRoles = _Roles.filter((u, index) => index < 20 * page && index >= 20 * (page - 1))
+	      return new Promise((resolve, reject) => {
+	        setTimeout(() => {
+	          resolve([200, {
+	            total: total,
+	            roles: mockRoles
+	          }]);
+	        }, 1000);
+	      })
+	    })
+	    //编辑角色
+	    mock.onGet('/role/edit').reply(config => {
+	      let { id, permissions, role } = config.params
+	      _Roles.some(u => {
+	        if (u.id === id) {
+	          u.permissions = permissions
+	          u.role = role
+	          return true
+	        }
+	      })
+	      return new Promise((resolve, reject) => {
+	        setTimeout(() => {
+	          resolve([200, {
+	            code: 200,
+	            msg: '编辑成功'
+	          }])
+	        }, 500)
+	      })
+	    })
+	    //新增角色
+	    mock.onGet('/role/add').reply(config => {
+	      let { id, permissions, role } = config.params
+	      _Roles.push({
+	        permissions: permissions,
+	        role: role
+	      })
+	      return new Promise((resolve, reject) => {
+	        setTimeout(() => {
+	          resolve([200, {
+	            code: 200,
+	            msg: '新增成功'
+	          }])
+	        }, 500)
+	      })
+	    })
+	    //删除角色
+	    mock.onGet('/role/remove').reply(config => {
+	      let { id } = config.params
+	     _Roles = _Roles.filter(u => u.id !== id)
 	      return new Promise((resolve, reject) => {
 	        setTimeout(() => {
 	          resolve([200, {

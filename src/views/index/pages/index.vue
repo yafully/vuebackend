@@ -17,7 +17,7 @@
               </el-menu-item>
             </el-submenu>
             <el-menu-item v-if="item.leaf&&item.children.length>0 && !item.hidden" :index="item.children[0].path" :key="'mi'+index">
-              <i :class="item.iconCls"></i>{{item.children[0].name}}
+              <i :class="item.iconCls"></i><span class="menu-title" v-text="item.children[0].name"></span>
             </el-menu-item>
           </template>
         </el-menu>

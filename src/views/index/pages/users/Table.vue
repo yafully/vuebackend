@@ -171,7 +171,7 @@ export default {
 		
 	},
 	methods: {
-		//获取用户列表
+		//获取角色列表
 		getUsers () {
 			let para = {
 				page: this.page,
@@ -183,6 +183,7 @@ export default {
 				this.total = res.data.total
 				this.users = res.data.users
 				this.listLoading = false
+				
 			})
 		},
 		//性别显示转换

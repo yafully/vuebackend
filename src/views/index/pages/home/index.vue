@@ -1,6 +1,30 @@
 <template>
-	<div>
-		Home - Dashboard
+	<div class="inxBox">
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>
+	Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>Home - Dashboard<br/>
 	</div>
 </template>
 
@@ -10,6 +34,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 
 </style>
