@@ -2,7 +2,9 @@
 Vue‘s Backend and Frontend Personal  
 基于VueCli3的Vue全家桶 + Element UI + Echarts 多页面多路由前+后端脚手架  
 数据由MockJS模拟  
-各页面入口文件为app.js,模版文件为view下面各模块文件夹内的任意html文件
+各页面入口文件为app.js,模版文件为view下面各模块文件夹内的任意html文件  
+# 兼容低版本的IE
+需要引入babel-polyfill
 # Featrues
 动态鉴权构建菜单  
 标签级别权限控制
