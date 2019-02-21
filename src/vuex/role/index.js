@@ -14,21 +14,20 @@ export default {
       // 省略 axios 请求代码 通过 token 向后台请求用户权限等信息，这里用假数据赋值
       // console.log(4444)
       state.info = token ? {
-        role: token.role,//superAdmin
-        permissions: token.permissions
+        role: token.roleInfo.role,//superAdmin
+        permissions: token.roleInfo.permissions
       } : {}
 	  // sessionStorage.setItem('info', JSON.stringify(store.getters.info))
 
     },
     setRole (state, options) {  // 切换角色，测试权限管理
       state.info = {
-        role: options.role,
-        permissions: options.permissions
+        role: options.roleInfo.role,
+        permissions: options.roleInfo.permissions
       }
       sessionStorage.setItem('info', JSON.stringify(store.getters.info));
-      store.dispatch('newRoutes', options.role)
+      store.dispatch('newRoutes', options.roleInfo.role)
       router.addRoutes(store.getters.addRouters)
-
     }
   },
   actions: {

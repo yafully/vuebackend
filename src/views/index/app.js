@@ -4,7 +4,8 @@
  * @date    2019-02-12 16:42:59
  * @version $Id$
  */
-import Vue from 'vue'
+//import Vue from 'vue'
+import Vue from '@common/Permission'
 import store from '@/vuex'
 import router from '../../route/index/'
 import ElementUI from 'element-ui'

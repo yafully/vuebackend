@@ -4,7 +4,7 @@
         <el-header height="40px" class="header-left" v-text="collapsed ? `Logo` : `系统管理`">
 
         </el-header>
-        <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect" unique-opened router :collapse="collapsed">
+        <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect" unique-opened router :collapse="collapsed" :collapse-transition="false">
           <template v-for="(item,index) in routers">
             <el-submenu :index="index+''" v-if="!item.leaf && !item.hidden" :key="'ms'+index">
               <template slot="title">

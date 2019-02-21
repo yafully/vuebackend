@@ -3,7 +3,7 @@
  * @authors YafullyZhao (yafully@gmail.com)
  * @date    2019-02-20 16:51:03
  */
-import Mock from 'mockjs';
+import Mock from 'mockjs'
 const Roles = [
   	{
 	  id: 20001,
@@ -22,6 +22,6 @@ const Roles = [
 	  role: 'guest',
 	  permissions: '访客'
 	}
-];
+]
 
-export { Roles };
+export { Roles }

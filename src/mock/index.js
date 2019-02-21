@@ -13,6 +13,8 @@ import { Telephone } from './data/telephone';
 let _Users = Users
 let _Telephone = Telephone
 let _Roles = Roles
+let _LoginUsers = LoginUsers
+
 export default {
 	bootstrap () {
 		let mock = new MockAdapter(axios)
@@ -60,8 +62,9 @@ export default {
 	      return new Promise((resolve, reject) => {
 	        setTimeout(() => {
 	          resolve([200, {
-	            role: roleUsers[0].role,
-	            permissions: roleUsers[0].permissions,
+	            // role: roleUsers[0].role,
+	            // permissions: roleUsers[0].permissions,
+	            roleInfo: roleUsers[0].roleInfo,
 	            avatar: roleUsers[0].avatar,
 	            name: roleUsers[0].name,
 	            id: roleUsers[0].id
@@ -205,12 +208,16 @@ export default {
 	      })
 	    })
 
-	    //获取用户列表（分页）
+	    //获取角色列表（分页）
 	    mock.onGet('/role/listpage').reply(config => {
 	      let {page} = config.params
-
+			let mockRoles = false
 	      let total = _Roles.length;
-	      let mockRoles = _Roles.filter((u, index) => index < 20 * page && index >= 20 * (page - 1))
+	      if (page !== 'all') {
+	    	mockRoles = _Roles.filter((u, index) => index < 20 * page && index >= 20 * (page - 1))
+	      }else{
+	    	mockRoles = _Roles
+	      }
 	      return new Promise((resolve, reject) => {
 	        setTimeout(() => {
 	          resolve([200, {
@@ -259,6 +266,81 @@ export default {
 	    mock.onGet('/role/remove').reply(config => {
 	      let { id } = config.params
 	     _Roles = _Roles.filter(u => u.id !== id)
+	      return new Promise((resolve, reject) => {
+	        setTimeout(() => {
+	          resolve([200, {
+	            code: 200,
+	            msg: '删除成功'
+	          }])
+	        }, 500)
+	      })
+	    })
+
+	    //获取管理员列表（分页）
+	    mock.onGet('/role/adminlist').reply(config => {
+	      let {page} = config.params
+
+	      let total = LoginUsers.length;
+	      let mockAdmins = LoginUsers.filter((u, index) => index < 20 * page && index >= 20 * (page - 1))
+	      return new Promise((resolve, reject) => {
+	        setTimeout(() => {
+	          resolve([200, {
+	            total: total,
+	            admins: mockAdmins
+	          }]);
+	        }, 1000);
+	      })
+	    })
+	    //新增管理员
+	    mock.onGet('/role/addadmin').reply(config => {
+	      let { id, username, name, password, email, roleInfo, avatar } = config.params
+	      LoginUsers.push({
+	        username: username,
+	        password: password,
+	        email:email,
+	        roleInfo:roleInfo,
+	        avatar:avatar,
+	        name:name
+	      })
+	      return new Promise((resolve, reject) => {
+	        setTimeout(() => {
+	          resolve([200, {
+	            code: 200,
+	            msg: '新增成功'
+	          }])
+	        }, 500)
+	      })
+	    })
+
+	    //编辑管理员
+	    mock.onGet('/role/editadmin').reply(config => {
+	      let { id, username, newpassword, email, roleInfo, avatar, name } = config.params
+	      LoginUsers.some(u => {
+	        if (u.id === id) {
+	          u.username = username
+	          if (newpassword != '') {
+	          	u.password = newpassword
+	          }
+	          u.email = email
+	          u.roleInfo = roleInfo
+	          u.avatar = avatar
+	          u.name = name
+	          return true
+	        }
+	      })
+	      return new Promise((resolve, reject) => {
+	        setTimeout(() => {
+	          resolve([200, {
+	            code: 200,
+	            msg: '编辑成功'
+	          }])
+	        }, 500)
+	      })
+	    })
+	    //删除管理员
+	    mock.onGet('/role/removeadmin').reply(config => {
+	      let { id } = config.params
+	      LoginUsers.filter(u => u.id !== id)
 	      return new Promise((resolve, reject) => {
 	        setTimeout(() => {
 	          resolve([200, {

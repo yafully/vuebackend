@@ -32,3 +32,11 @@ export const editRole = params => { return axios.get(`${base}/role/edit`, { para
 export const addRole = params => { return axios.get(`${base}/role/add`, { params: params })}
 //角色删除
 export const removeRole = params => { return axios.get(`${base}/role/remove`, { params: params })}
+//管理员列表
+export const getAdminList = params => { return axios.get(`${base}/role/adminlist`, { params: params })}
+//管理员新增
+export const addAdmin = params => { return axios.get(`${base}/role/addadmin`, { params: params })}
+//管理员编辑
+export const editAdmin = params => { return axios.get(`${base}/role/editadmin`, { params: params })}
+//管理员删除
+export const removeAdmin = params => { return axios.get(`${base}/role/removeadmin`, { params: params })}

@@ -70,7 +70,6 @@
               } else {
                 //sessionStorage.setItem('user', JSON.stringify(user));
                 //this.$router.push({ path: '/index' });
-                //console.log(user.username)
                 self.$store.dispatch('setToken', user).then(() => {
                   self.$router.push({path: '/index'})
                 }).catch(res => {

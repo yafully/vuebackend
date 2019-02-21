@@ -17,6 +17,7 @@ const Echarts = () => import('@/views/index/pages/users/Echarts')
 const DragTable = () => import('@/views/index/pages/users/DragTable')
 //权限管理
 const RolePage = () => import('@/views/index/pages/role/RolePage')
+const RoleUser = () => import('@/views/index/pages/role/RoleUser')
 const Featrues = () => import('@/views/index/pages/role/Featrues')
 
 Vue.use(VueRouter)
@@ -117,7 +118,7 @@ let addRouter = [
         name: '权限管理',
         iconCls: 'el-icon-featrues',//图标样式class
         meta: {
-            role: ['superAdmin'],
+            role: ['superAdmin','admin'],
         },
         children: [
             { 
@@ -127,12 +128,23 @@ let addRouter = [
                 name: '角色管理',
                 iconCls: 'el-icon-role',
                 meta: {
-                    role: ['superAdmin'],
+                    role: ['superAdmin','admin'],
                     title: '角色管理'
                 } 
             },
             { 
                 id: 'f2002',
+                path: '/user-role', 
+                component: RoleUser, 
+                name: '管理员管理',
+                iconCls: 'el-icon-user-auth',
+                meta: {
+                    role: ['superAdmin'],
+                    title: '管理员管理'
+                } 
+            },
+            { 
+                id: 'f2003',
                 path: '/featrues', 
                 component: Featrues, 
                 name: '功能权限',
