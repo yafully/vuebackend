@@ -3,11 +3,13 @@
  * @authors YafullyZhao (yafully@gmail.com)
  * @date    2019-02-18 09:48:01
  */
+import 'babel-polyfill' 
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Cookies from 'js-cookie'
 import routerData from './router/'
 import role from './role/'
+import lang from './lang/'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -41,11 +43,13 @@ const store = new Vuex.Store({
     token: state => state.token,
     info: state => state.role.info,
     addRouters: state => state.routerData.addRouters,
-    routers: state => state.routerData.routers
+    routers: state => state.routerData.routers,
+    language: state => state.lang.language
   },
   modules: {
     routerData,
-    role
+    role,
+    lang
   }
 })
 

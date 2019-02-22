@@ -1,7 +1,7 @@
 <template>
     <el-container v-wechat-title="$route.meta.title">
       <el-aside :class="collapsed?'menu-collapsed':'menu-expanded'">
-        <el-header height="40px" class="header-left" v-text="collapsed ? `Logo` : `系统管理`">
+        <el-header height="40px" class="header-left" v-text="collapsed ? `Logo` : $t('navbar.title')">
 
         </el-header>
         <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect" unique-opened router :collapse="collapsed" :collapse-transition="false">
@@ -9,15 +9,16 @@
             <el-submenu :index="index+''" v-if="!item.leaf && !item.hidden" :key="'ms'+index">
               <template slot="title">
                 <i :class="item.iconCls"></i>
-                <span class="menu-title" v-text="item.name"></span>
+                <span class="menu-title" v-text="$t(`routeName.${item.name}`)"></span>
               </template>
               <el-menu-item v-for="(child, inx) in item.children" v-bind:key="'msi'+inx" :index="child.path">
                 <i :class="child.iconCls"></i>
-                <span v-if="!child.hidden">{{child.name}}</span>
+                <span v-if="!child.hidden" v-text="$t(`routeName.${child.name}`)"></span>
               </el-menu-item>
             </el-submenu>
             <el-menu-item v-if="item.leaf&&item.children.length>0 && !item.hidden" :index="item.children[0].path" :key="'mi'+index">
-              <i :class="item.iconCls"></i><span class="menu-title" v-text="item.children[0].name"></span>
+              <i :class="item.iconCls"></i>
+              <span class="menu-title" v-text="$t(`routeName.${item.children[0].name}`)"></span>
             </el-menu-item>
           </template>
         </el-menu>
@@ -42,9 +43,12 @@
             </el-col>
 
             <el-col :span="12" class="userinfo">
+
               <el-tooltip class="item" effect="dark" :content="fullscreenTip" placement="bottom">
                 <i :class="[isfullScreen ? 'el-icon-icon-fullscreen' : 'el-icon-icon-normal']" @click="fullScreen"></i>
               </el-tooltip>
+
+              <lang-select></lang-select>
 
               <el-dropdown trigger="hover">
                 <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
@@ -69,6 +73,7 @@
   import { mapGetters } from 'vuex'
   import Cookies from 'js-cookie'
   import store from '@/vuex'
+  import LangSelect from '@comp/lang'
   export default {
     name: 'Home',
     data () {
@@ -79,9 +84,12 @@
         sysUserAvatar: ''
       }
     },
+    components: {
+      LangSelect
+    },
     computed: {
       fullscreenTip () {
-        return this.isfullScreen ? '全屏' : '退出全屏'
+        return this.isfullScreen ? this.$t('navbar.screenfull') : this.$t('navbar.screenNormal')
       },
       ...mapGetters(['routers']) //展开vuex里面的getter对象内的routers渲染菜单
     },

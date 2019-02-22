@@ -1,4 +1,4 @@
-import store from '../index'
+import 'babel-polyfill' 
 import {router, defaultRouter, addRouter} from '@/route/index'
 
 const routerData = {

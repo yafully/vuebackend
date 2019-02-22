@@ -3,6 +3,7 @@
  * @authors YafullyZhao (yafully@gmail.com)
  * @date    2019-02-18 10:03:08
  */
+import 'babel-polyfill'  
 import store from '../index'
 import router from '../../route/index/'
 export default {

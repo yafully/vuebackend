@@ -6,6 +6,7 @@
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import en from '@/lang/en'
 
 import Layout from '@/views/index/pages/'
 import Login from '@/views/index/pages/Login'
@@ -21,7 +22,7 @@ const RoleUser = () => import('@/views/index/pages/role/RoleUser')
 const Featrues = () => import('@/views/index/pages/role/Featrues')
 
 Vue.use(VueRouter)
-
+let routeName = en.routeName
 let defaultRouter = [
   { 
     path: '/',
@@ -46,7 +47,7 @@ let defaultRouter = [
       {
         path: '/index',
         iconCls: 'el-icon-tickets', // 图标样式class
-        name: '仪表盘',
+        name: routeName.home,
         component: HomeMain
       }
     ]
@@ -58,55 +59,55 @@ let addRouter = [
         id: 'f1000',
         path: '/',
         component: Layout,
-        name: '用户管理',
+        name: routeName.userManage,
         iconCls: 'el-icon--user',//图标样式class
         meta: {
             role: ['superAdmin', 'admin'],
-            title: '用户管理'
+            title: routeName.userManage
         },
         children: [
             {
                 id: 'f1001',
                 path: '/userlist', 
                 component: Table, 
-                name: '用户列表',
+                name: routeName.userLsit,
                 iconCls: 'el-icon-users',
                 meta: {
                     role: ['superAdmin', 'admin'],
-                    title: '用户列表'
+                    title: routeName.userLsit
                 } 
             },
             { 
                 id: 'f1002',
                 path: '/contacts', 
                 component: Contacts, 
-                name: '联系我们',
+                name: routeName.contactUs,
                 iconCls: 'el-icon-contacts',
                 meta: {
                     role: ['superAdmin'],
-                    title: '联系我们'
+                    title: routeName.contactUs
                 } 
             },
             { 
                 id: 'f1003',
                 path: '/usersort', 
                 component: DragTable, 
-                name: '用户排序',
+                name: routeName.userSort,
                 iconCls: 'el-icon-sort',
                 meta: {
                     role: ['superAdmin'],
-                    title: '用户排序'
+                    title: routeName.userSort
                 } 
             },
             { 
                 id: 'f1004',
                 path: '/statistics', 
                 component: Echarts, 
-                name: '用户统计',
+                name: routeName.userChart,
                 iconCls: 'el-icon-chart',
                 meta: {
                     role: ['superAdmin', 'admin'],
-                    title: '用户统计'
+                    title: routeName.userChart
                 } 
             }
         ]
@@ -115,43 +116,44 @@ let addRouter = [
         id: 'f2000',
         path: '/',
         component: Layout,
-        name: '权限管理',
+        name: routeName.privilegeManage,
         iconCls: 'el-icon-featrues',//图标样式class
         meta: {
             role: ['superAdmin','admin'],
+            title: routeName.privilegeManage
         },
         children: [
             { 
                 id: 'f2001',
                 path: '/editrole', 
                 component: RolePage, 
-                name: '角色管理',
+                name: routeName.roleManage,
                 iconCls: 'el-icon-role',
                 meta: {
                     role: ['superAdmin','admin'],
-                    title: '角色管理'
+                    title: routeName.roleManage
                 } 
             },
             { 
                 id: 'f2002',
                 path: '/user-role', 
                 component: RoleUser, 
-                name: '管理员管理',
+                name: routeName.adminManage,
                 iconCls: 'el-icon-user-auth',
                 meta: {
                     role: ['superAdmin'],
-                    title: '管理员管理'
+                    title: routeName.adminManage
                 } 
             },
             { 
                 id: 'f2003',
                 path: '/featrues', 
                 component: Featrues, 
-                name: '功能权限',
+                name: routeName.functionPrivilege,
                 iconCls: 'el-icon-tree',
                 meta: {
                     role: ['superAdmin'],
-                    title: '功能权限'
+                    title: routeName.functionPrivilege
                 } 
             }
         ]

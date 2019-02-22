@@ -5,17 +5,21 @@
  * @version $Id$
  */
 //import Vue from 'vue'
+import 'babel-polyfill'
 import Vue from '@common/Permission'
 import store from '@/vuex'
 import router from '../../route/index/'
 import ElementUI from 'element-ui'
 import IndexPage from './IndexPage'
-import locale from 'element-ui/lib/locale/lang/en'
+// 国际化
+import i18n from '@/lang/'
 import { getRole } from '@api/api'
 import Mock from '../../mock'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/less/common.less'
-Vue.use(ElementUI, { locale })
+Vue.use(ElementUI, { 
+  i18n: (key, value) => i18n.t(key, value)
+})
 Vue.use(require('vue-wechat-title'))
 
 Mock.bootstrap();
@@ -79,5 +83,6 @@ router.beforeEach((to, from, next) => {
 new Vue({
 	router,
   store,
+  i18n,
 	render: h => h(IndexPage)
 }).$mount('#app')

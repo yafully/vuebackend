@@ -4,7 +4,7 @@
  * @date    2019-02-12 11:25:04
  * @version $Id$
  */
-
+//const needBabelPolyFill = true
 const glob = require('glob')
 let path = require('path')
 function resolve (dir) {
@@ -25,6 +25,7 @@ const getPages = (() => {
       for (let entry of fileList) {
         tempArr = path.dirname(entry, path.extname(entry)).split('/')
         modName = tempArr[tempArr.length - 1]
+        //let jsPath = needBabelPolyFill ? {'app': ['babel-polyfill', entry]} : entry
         if (tempSet.has(modName)) {
           Object.assign(pages[modName], { [keyName]: entry, 'filename': `${modName}.html` })
         } else {
@@ -118,12 +119,13 @@ module.exports = {
     config.resolve.alias.set('@common', resolve('src/common'))
     config.resolve.alias.set('@comp', resolve('src/components'))
     config.resolve.alias.set('@views', resolve('src/views'))
+
+    //config.entry('app').add('babel-polyfill')
   },
 
   configureWebpack: () => {}, // CSS 相关选项
   // configureWebpack: (config) => {
-  //   config.module.rules.push({ test: /\.(woff|woff2|svg|eot|ttf)\??.*$/,
-  //       loader: 'file-loader?name=./assets/fonts/[name].[ext]' })
+  //   config.entry.app = ['babel-polyfill']//配置polyfill贱兼容IE
   // },
 
   css: {
