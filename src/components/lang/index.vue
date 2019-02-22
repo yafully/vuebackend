@@ -27,7 +27,6 @@
           position: 'bottom-right',
           showClose: false
         })
-        console.log(this.$store.getters.routers)
       }
     }
   }

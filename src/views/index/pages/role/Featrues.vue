@@ -13,7 +13,7 @@
 		  ref="roleTree">
 		  <span class="custom-tree-node" slot-scope="{ node, data }">
 	        <span>
-	        {{ node.label }}
+	        {{ $t(`routeName.${node.label}`) }}
 	        {{ data.meta.role.join('-') }}
 	    	</span>
 	      </span>
@@ -23,7 +23,7 @@
 	  	<el-card class="box-card">
 		  <div slot="header" class="clearfix">
 		    <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">
-		    	全选 - <el-tag :type="this.activeId ? 'primary' : 'danger'" size="medium">{{nowAtive}}</el-tag>
+		    	全选 - <el-tag :type="this.activeId ? 'primary' : 'danger'" size="medium">{{ $t(`routeName.${nowAtive}`)}}</el-tag>
 			</el-checkbox>
 			<el-button type="primary" @click.native="saveRole" style="float:right">保存权限</el-button>
 		  </div>

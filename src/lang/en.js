@@ -10,20 +10,20 @@ export default {
     login: 'Login'
   },
   navbar: {
-    title: 'vue-cms',
+    title: 'Backend-CMS',
     screenfull: 'Full screen',
     screenNormal: 'Exit full screen'
   },
   routeName: {
-    home: 'home',
-    userManage: 'userManage',
-    userLsit: 'userLsit',
-    contactUs: 'contactUs',
-    userSort: 'userSort',
-    userChart: 'userChart',
-    privilegeManage: 'privilegeManage',
-    roleManage: 'roleManage',
-    adminManage: 'adminManage',
-    functionPrivilege: 'functionPrivilege'
+    home: 'Home',
+    userManage: 'User Manage',
+    userLsit: 'User Lsit',
+    contactUs: 'Contact Us',
+    userSort: 'User Sort',
+    userChart: 'User Chart',
+    privilegeManage: 'Privilege Manage',
+    roleManage: 'Role Manage',
+    adminManage: 'Admin Manage',
+    functionPrivilege: 'Function Privilege'
   }
 }

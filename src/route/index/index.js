@@ -6,7 +6,7 @@
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import en from '@/lang/en'
+import def from '@/lang/def'
 
 import Layout from '@/views/index/pages/'
 import Login from '@/views/index/pages/Login'
@@ -22,7 +22,7 @@ const RoleUser = () => import('@/views/index/pages/role/RoleUser')
 const Featrues = () => import('@/views/index/pages/role/Featrues')
 
 Vue.use(VueRouter)
-let routeName = en.routeName
+let routeName = def.routeName
 let defaultRouter = [
   { 
     path: '/',
@@ -154,7 +154,7 @@ let addRouter = [
                 meta: {
                     role: ['superAdmin'],
                     title: routeName.functionPrivilege
-                } 
+                }
             }
         ]
     }
