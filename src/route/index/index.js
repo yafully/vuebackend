@@ -75,7 +75,8 @@ let addRouter = [
                 meta: {
                     role: ['superAdmin', 'admin'],
                     title: routeName.userLsit
-                } 
+                },
+                children: []
             },
             { 
                 id: 'f1002',
@@ -86,7 +87,8 @@ let addRouter = [
                 meta: {
                     role: ['superAdmin'],
                     title: routeName.contactUs
-                } 
+                },
+                children: []
             },
             { 
                 id: 'f1003',
@@ -97,7 +99,8 @@ let addRouter = [
                 meta: {
                     role: ['superAdmin'],
                     title: routeName.userSort
-                } 
+                },
+                children: []
             },
             { 
                 id: 'f1004',
@@ -108,7 +111,8 @@ let addRouter = [
                 meta: {
                     role: ['superAdmin', 'admin'],
                     title: routeName.userChart
-                } 
+                },
+                children: []
             }
         ]
     },
@@ -132,29 +136,57 @@ let addRouter = [
                 meta: {
                     role: ['superAdmin','admin'],
                     title: routeName.roleManage
-                } 
+                },
+                children: [] 
             },
             { 
                 id: 'f2002',
                 path: '/user-role', 
                 component: RoleUser, 
                 name: routeName.adminManage,
-                iconCls: 'el-icon-user-auth',
+                iconCls: 'el-icon-user-set',
                 meta: {
                     role: ['superAdmin'],
                     title: routeName.adminManage
-                } 
+                },
+                children: [] 
             },
             { 
                 id: 'f2003',
-                path: '/featrues', 
+                path: '/', 
                 component: Featrues, 
                 name: routeName.functionPrivilege,
                 iconCls: 'el-icon-tree',
                 meta: {
                     role: ['superAdmin'],
                     title: routeName.functionPrivilege
-                }
+                },
+                children: [
+                    { 
+                        id: 'f3001',
+                        path: '/featrues', 
+                        component: Featrues, 
+                        name: routeName.functionPrivilege,
+                        iconCls: 'el-icon-user-auth',
+                        meta: {
+                            role: ['superAdmin'],
+                            title: routeName.functionPrivilege
+                        },
+                        children: []
+                    },
+                    { 
+                        id: 'f3002',
+                        path: '/leve3', 
+                        component: HomeMain, 
+                        name: routeName.level3,
+                        iconCls: 'el-icon-user-auth',
+                        meta: {
+                            role: ['superAdmin'],
+                            title: routeName.level3
+                        },
+                        children: []
+                    }
+                ]
             }
         ]
     }

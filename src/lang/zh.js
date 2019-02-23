@@ -25,6 +25,7 @@ export default {
     privilegeManage: '权限管理',
     roleManage: '角色管理',
     adminManage: '管理员管理',
-    functionPrivilege: '功能权限'
+    functionPrivilege: '功能权限',
+    level3: '三级菜单'
   }
 }

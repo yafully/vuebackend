@@ -6,15 +6,13 @@
         </el-header>
         <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect" unique-opened router :collapse="collapsed" :collapse-transition="false">
           <template v-for="(item,index) in routers">
-            <el-submenu :index="index+''" v-if="!item.leaf && !item.hidden" :key="'ms'+index">
+            <el-submenu :index="index+''" v-if="!item.leaf && !item.hidden && item.children.length>0" :key="'ms'+index">
               <template slot="title">
                 <i :class="item.iconCls"></i>
                 <span class="menu-title" v-text="$t(`routeName.${item.name}`)"></span>
               </template>
-              <el-menu-item v-for="(child, inx) in item.children" v-bind:key="'msi'+inx" :index="child.path">
-                <i :class="child.iconCls"></i>
-                <span v-if="!child.hidden" v-text="$t(`routeName.${child.name}`)"></span>
-              </el-menu-item>
+
+              <menu-tree :menuData="item.children"></menu-tree>
             </el-submenu>
             <el-menu-item v-if="item.leaf&&item.children.length>0 && !item.hidden" :index="item.children[0].path" :key="'mi'+index">
               <i :class="item.iconCls"></i>
@@ -70,6 +68,7 @@
 </template>
 
 <script>
+  import menuTree from './layout/menuTree'
   import { mapGetters } from 'vuex'
   import Cookies from 'js-cookie'
   import store from '@/vuex'
@@ -85,6 +84,7 @@
       }
     },
     components: {
+      menuTree,
       LangSelect
     },
     computed: {
