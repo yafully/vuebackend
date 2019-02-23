@@ -5,11 +5,13 @@ Vue‘s Backend and Frontend Personal
 各页面入口文件为app.js,模版文件为view下面各模块文件夹内的任意html文件  
 # 兼容低版本的IE
 需要引入babel-polyfill
-# Featrues
+# Featrues  
+多级菜单
 动态鉴权构建菜单  
 标签级别权限控制
 # Todo
-权限管理
+标签页
+数据导入、导出
 富文本编辑器
 
 If you find it useful, please start this project ~
