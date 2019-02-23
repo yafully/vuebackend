@@ -24,12 +24,12 @@ const Featrues = () => import('@/views/index/pages/role/Featrues')
 Vue.use(VueRouter)
 let routeName = def.routeName
 let defaultRouter = [
-  { 
-    path: '/',
-    redirect: '/index',
-    hidden: true,
-    children: []
-  },
+  // { 
+  //   path: '/',
+  //   redirect: '/index',
+  //   hidden: true,
+  //   children: []
+  // },
   {
     path: '/login',
     component: Login,
@@ -40,7 +40,8 @@ let defaultRouter = [
   {
     path: '/',
     iconCls: 'el-icon-tickets', // 图标样式class
-    name: '',
+    redirect: '/index',
+    name:'',
     leaf: true,//只有一个节点
     component: Layout,
     children: [
@@ -118,7 +119,7 @@ let addRouter = [
     },
     {
         id: 'f2000',
-        path: '/',
+        path: '/role',
         component: Layout,
         name: routeName.privilegeManage,
         iconCls: 'el-icon-featrues',//图标样式class
@@ -153,7 +154,7 @@ let addRouter = [
             },
             { 
                 id: 'f2003',
-                path: '/', 
+                path: '/three', 
                 component: Featrues, 
                 name: routeName.functionPrivilege,
                 iconCls: 'el-icon-tree',
@@ -166,11 +167,11 @@ let addRouter = [
                         id: 'f3001',
                         path: '/featrues', 
                         component: Featrues, 
-                        name: routeName.functionPrivilege,
+                        name: routeName.functionPrivilegeAllow,
                         iconCls: 'el-icon-user-auth',
                         meta: {
                             role: ['superAdmin'],
-                            title: routeName.functionPrivilege
+                            title: routeName.functionPrivilegeAllow
                         },
                         children: []
                     },

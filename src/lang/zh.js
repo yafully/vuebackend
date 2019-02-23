@@ -26,6 +26,7 @@ export default {
     roleManage: '角色管理',
     adminManage: '管理员管理',
     functionPrivilege: '功能权限',
+    functionPrivilegeAllow: '功能权限分配',
     level3: '三级菜单'
   }
 }

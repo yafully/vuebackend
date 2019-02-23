@@ -25,6 +25,7 @@ export default {
     roleManage: 'roleManage',
     adminManage: 'adminManage',
     functionPrivilege: 'functionPrivilege',
+    functionPrivilegeAllow: 'functionPrivilegeAllow',
     level3: 'level3'
   }
 }

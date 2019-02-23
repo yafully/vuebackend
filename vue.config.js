@@ -114,6 +114,7 @@ module.exports = {
   	//路径转义
   	config.resolve.alias.set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
   	config.resolve.alias.set('@css', resolve('src/assets/css'))
+    config.resolve.alias.set('@less', resolve('src/assets/less'))
   	config.resolve.alias.set('@img', resolve('src/assets/images'))
     config.resolve.alias.set('@api', resolve('src/api'))
     config.resolve.alias.set('@common', resolve('src/common'))

@@ -1,8 +1,8 @@
 <template>
-    <el-container v-wechat-title="$route.meta.title" :class="[collapsed ? 'menu-collapsed' : 'menu-expanded']">
+    <div v-wechat-title="$route.meta.title" :class="['workspace', collapsed ? 'menu-collapsed' : 'menu-expanded']">
       
       <el-scrollbar class="scrollbar-wrapper sidebar-container" ref="menuScroll">
-        <el-aside width="230px">
+
           <el-header height="40px" class="header-left" v-text="collapsed ? `Logo` : $t('navbar.title')">
 
           </el-header>
@@ -23,12 +23,12 @@
             </template>
           </el-menu>
           <br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位Last
-        </el-aside>
+
 
       </el-scrollbar>
 
-      <el-container>
-        <el-header height="40px"> 
+      <div class="mainspace">
+        <div class="header"> 
             <el-col :span="12">
                 <el-row :gutter="5">
                   <el-col :span="1" class="menu-call">
@@ -39,7 +39,7 @@
                   <el-col :span="12" class="breadcrumb-inner">
                     <el-breadcrumb separator="/">
                       <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="'bread'+index">
-                        {{ item.name }}
+                        {{ item.name !=='' ? $t(`routeName.${item.name}`) :'' }}
                       </el-breadcrumb-item>
                     </el-breadcrumb>
                   </el-col>
@@ -63,18 +63,24 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </el-col>
-        </el-header>
-        <el-main>
+        </div>
+
+        <tags-view></tags-view>
+
+        <div class="viewBox">
           <transition name="fade" mode="out-in">
             <router-view></router-view>
           </transition>
-        </el-main>
-      </el-container>
-    </el-container>
+        </div>
+      </div>
+
+    </div>
 </template>
 
 <script>
+  import '@less/layout.less'
   import menuTree from './layout/menuTree'
+  import TagsView from './layout/TagsView'
   import { mapGetters } from 'vuex'
   import Cookies from 'js-cookie'
   import store from '@/vuex'
@@ -91,6 +97,7 @@
       }
     },
     components: {
+      TagsView,
       menuTree,
       LangSelect
     },
@@ -202,66 +209,5 @@
   }
 </script>
 <style lang="less">
-  .abc{max-width:300px}
-  .el-container{
-    height: 100%;
-    position: relative;
-    z-index: 2;
-  }
-  .main{
-    .el-header{
-      background:#000;
-      color:#fff;
-      height:40px;padding:0;
-    }
-  }
-  .header-left{position:fixed;top:0;left:0;width:230px;z-index:10;line-height:40px;text-align:center;}
-  .menu-call{text-align:center;}
-  .breadcrumb-inner .el-breadcrumb{line-height:40px;}
-  .userinfo{
-    text-align:right;line-height:40px;
-    .userinfo-inner{color:#fff;cursor:pointer;
-      img{width:34px;height:34px;border-radius:100%;vertical-align:middle;margin-right:5px;}
-    }
-  }
 
-  .sidebar-container{
-    -webkit-transition:150ms;-moz-transition:150ms;-o-transition:150ms;transition:150ms;
-    .el-aside{
-      position: relative;
-      padding-top: 40px;
-      z-index: 1;
-      overflow: hidden;
-      
-    }
-    .el-menu{border-right:none;}
-  }
-  .menu-collapsed{
-    .sidebar-container{
-      flex:0 0 64px;
-      width: 64px;
-    }
-    .header-left,.el-scrollbar{width: 64px}
-  }
-  .menu-expanded{
-    .sidebar-container{
-      flex:0 0 230px;
-      width: 230px;
-    }
-    .header-left,.el-scrollbar{width: 230px}
-  }
-  .el-menu--collapse{
-    .menu-title{width:0;height:0;overflow:hidden;visibility:hidden;}
-  }
-  .el-menu--vertical{
-    .el-menu--popup{
-      border-radius:0;
-    }    
-  }
-
-  .scrollbar-wrapper {
-    //&.el-scrollbar{position: fixed;top:0;height: 100%;z-index:10;}
-    border-right:1px solid #d8dce5;
-    .el-scrollbar__wrap{overflow-x:hidden;height: 100%}
-  }  
 </style>

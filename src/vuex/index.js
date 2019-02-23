@@ -7,6 +7,7 @@ import 'babel-polyfill'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Cookies from 'js-cookie'
+import tagsView from './tagview/'
 import routerData from './router/'
 import role from './role/'
 import lang from './lang/'
@@ -47,6 +48,7 @@ const store = new Vuex.Store({
     language: state => state.lang.language
   },
   modules: {
+    tagsView,
     routerData,
     role,
     lang
