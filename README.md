@@ -8,9 +8,10 @@ Vue‘s Backend and Frontend Personal
 # Featrues  
 多级菜单
 动态鉴权构建菜单  
-标签级别权限控制
+多标签页工作区  
+标签级别权限控制  
 # Todo
-标签页
+缓存机制  
 数据导入、导出
 富文本编辑器
 
