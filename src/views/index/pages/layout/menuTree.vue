@@ -9,7 +9,7 @@
           <menu-tree :menuData="child.children"></menu-tree>
         </el-submenu>
 		
-		<el-menu-item v-else :index="child.path">
+		<el-menu-item v-else :index="child.path" :key="child.name">
           <i :class="child.iconCls"></i>
           <span class="menu-title" v-text="$t(`routeName.${child.name}`)"></span>
         </el-menu-item>

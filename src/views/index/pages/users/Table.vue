@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import util from '@common/util'
+import { Util } from '@common/util'
 import { getUserListPage, editUser, removeUser, addUser, batchRemoveUser } from '@api/api'
 
 export default {
@@ -212,7 +212,7 @@ export default {
 						this.editLoading = true;
 						//NProgress.start();
 						let para = Object.assign({}, this.editForm);
-						para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd')
+						para.birth = (!para.birth || para.birth == '') ? '' : Util.formatDate(new Date(para.birth), 'yyyy-MM-dd')
 						editUser(para).then((res) => {
 							this.editLoading = false;
 							this.$message({
@@ -264,7 +264,7 @@ export default {
 					this.$confirm('确认提交吗？', '提示', {}).then(() => {
 						this.addLoading = true
 						let para = Object.assign({}, this.addForm)
-						para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd')
+						para.birth = (!para.birth || para.birth == '') ? '' : Util.formatDate(new Date(para.birth), 'yyyy-MM-dd')
 						addUser(para).then((res) => {
 							this.addLoading = false
 							this.$message({

@@ -1,26 +1,32 @@
 <template>
-    <el-container v-wechat-title="$route.meta.title">
-      <el-aside :class="collapsed?'menu-collapsed':'menu-expanded'">
-        <el-header height="40px" class="header-left" v-text="collapsed ? `Logo` : $t('navbar.title')">
+    <el-container v-wechat-title="$route.meta.title" :class="[collapsed ? 'menu-collapsed' : 'menu-expanded']">
+      
+      <el-scrollbar class="scrollbar-wrapper sidebar-container" ref="menuScroll">
+        <el-aside width="230px">
+          <el-header height="40px" class="header-left" v-text="collapsed ? `Logo` : $t('navbar.title')">
 
-        </el-header>
-        <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect" unique-opened router :collapse="collapsed" :collapse-transition="false">
-          <template v-for="(item,index) in routers">
-            <el-submenu :index="index+''" v-if="!item.leaf && !item.hidden && item.children.length>0" :key="'ms'+index">
-              <template slot="title">
+          </el-header>
+          <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect" router :collapse="collapsed" :collapse-transition="false">
+            <template v-for="(item,index) in routers">
+              <el-submenu :index="index+''" v-if="!item.leaf && !item.hidden && item.children.length>0" :key="'ms'+index">
+                <template slot="title">
+                  <i :class="item.iconCls"></i>
+                  <span class="menu-title" v-text="$t(`routeName.${item.name}`)"></span>
+                </template>
+
+                <menu-tree :menuData="item.children"></menu-tree>
+              </el-submenu>
+              <el-menu-item v-if="item.leaf&&item.children.length>0 && !item.hidden" :index="item.children[0].path" :key="'mi'+index">
                 <i :class="item.iconCls"></i>
-                <span class="menu-title" v-text="$t(`routeName.${item.name}`)"></span>
-              </template>
+                <span class="menu-title" v-text="$t(`routeName.${item.children[0].name}`)" slot="title"></span>
+              </el-menu-item>
+            </template>
+          </el-menu>
+          <br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位<br/>占位Last
+        </el-aside>
 
-              <menu-tree :menuData="item.children"></menu-tree>
-            </el-submenu>
-            <el-menu-item v-if="item.leaf&&item.children.length>0 && !item.hidden" :index="item.children[0].path" :key="'mi'+index">
-              <i :class="item.iconCls"></i>
-              <span class="menu-title" v-text="$t(`routeName.${item.children[0].name}`)"></span>
-            </el-menu-item>
-          </template>
-        </el-menu>
-      </el-aside>
+      </el-scrollbar>
+
       <el-container>
         <el-header height="40px"> 
             <el-col :span="12">
@@ -77,6 +83,7 @@
     name: 'Home',
     data () {
       return {
+        layoutResize: '40px',
         isfullScreen: true,
         collapsed:false,
         sysUserName: '',
@@ -183,6 +190,14 @@
         this.sysUserName = user.name || ''
         this.sysUserAvatar = user.avatar || ''
       }
+      //Resize
+      //let self = this
+      window.addEventListener('resize', () => {
+        setTimeout(() => {
+          this.$refs.menuScroll.update()
+        }, 500)
+      })
+      
     }
   }
 </script>
@@ -200,7 +215,7 @@
       height:40px;padding:0;
     }
   }
-  .header-left{line-height:40px;text-align:center;}
+  .header-left{position:fixed;top:0;left:0;width:230px;z-index:10;line-height:40px;text-align:center;}
   .menu-call{text-align:center;}
   .breadcrumb-inner .el-breadcrumb{line-height:40px;}
   .userinfo{
@@ -210,18 +225,30 @@
     }
   }
 
-  .el-aside{
-    background:#ccc;
+  .sidebar-container{
     -webkit-transition:150ms;-moz-transition:150ms;-o-transition:150ms;transition:150ms;
+    .el-aside{
+      position: relative;
+      padding-top: 40px;
+      z-index: 1;
+      overflow: hidden;
+      
+    }
+    .el-menu{border-right:none;}
   }
   .menu-collapsed{
-    flex:0 0 64px;
-    width: 64px;
-    //.header-left{padding:0;width:0;height:0;overflow:hidden;visibility:hidden;}
+    .sidebar-container{
+      flex:0 0 64px;
+      width: 64px;
+    }
+    .header-left,.el-scrollbar{width: 64px}
   }
   .menu-expanded{
-    flex:0 0 230px;
-    width: 230px;
+    .sidebar-container{
+      flex:0 0 230px;
+      width: 230px;
+    }
+    .header-left,.el-scrollbar{width: 230px}
   }
   .el-menu--collapse{
     .menu-title{width:0;height:0;overflow:hidden;visibility:hidden;}
@@ -232,4 +259,9 @@
     }    
   }
 
+  .scrollbar-wrapper {
+    //&.el-scrollbar{position: fixed;top:0;height: 100%;z-index:10;}
+    border-right:1px solid #d8dce5;
+    .el-scrollbar__wrap{overflow-x:hidden;height: 100%}
+  }  
 </style>
