@@ -1,7 +1,7 @@
 <template>
   <el-dropdown trigger="hover" class='international-icon' @command="handleSetLanguage">
-    <div>
-      <i class="el-icon-language"></i>
+    <div class="tools-item">
+      <i class="el-icon-language icon"></i>
     </div>
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item command="zh" :disabled="language==='zh'">中文</el-dropdown-item>

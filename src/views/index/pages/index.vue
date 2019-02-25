@@ -2,9 +2,8 @@
     <div v-wechat-title="$t(`routeName.${$route.meta.title}`)" :class="['workspace', collapsed ? 'menu-collapsed' : 'menu-expanded']">
       <el-scrollbar class="scrollbar-wrapper sidebar-container" ref="menuScroll">
 
-          <el-header height="40px" class="header-left" v-text="collapsed ? `Logo` : $t('navbar.title')">
+          <div class="header header-left" v-text="collapsed ? `Logo` : $t('navbar.title')"></div>
 
-          </el-header>
           <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect" router :collapse="collapsed" :collapse-transition="false">
             <template v-for="(item,index) in routers">
               <el-submenu :index="index+''" v-if="!item.leaf && !item.hidden && item.children.length>0" :key="'ms'+index">
@@ -28,51 +27,35 @@
 
       <div class="mainspace">
         <div class="header"> 
-            <el-col :span="12">
-                <el-row :gutter="5">
-                  <el-col :span="1" class="menu-call">
-                    <el-button type="text" @click.prevent="collapse">
-                      <i class="el-icon-menu"></i>
-                    </el-button>
-                  </el-col>
-                  <el-col :span="12" class="breadcrumb-inner">
-                    <el-breadcrumb separator="/">
-                      <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="'bread'+index">
-                        {{ item.name !=='' ? $t(`routeName.${item.name}`) :'' }}
-                      </el-breadcrumb-item>
-                    </el-breadcrumb>
-                  </el-col>
-                </el-row>
-            </el-col>
+            <div class="doTd">
+              <div class="tools-item">
+                <i class="el-icon-menu" @click.prevent="collapse"></i>
+              </div>
+              <div class="tools-item breadcrumb-inner">
+                <el-breadcrumb separator="/">
+                  <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="'bread'+index">
+                    {{ item.name !=='' ? $t(`routeName.${item.name}`) :'' }}
+                  </el-breadcrumb-item>
+                </el-breadcrumb>
+              </div>
+            </div>
 
-            <el-col :span="12" class="userinfo">
-
+            <div class="doTd head-right-tools">
               <el-tooltip class="item" effect="dark" :content="fullscreenTip" placement="bottom">
-                <i :class="[isfullScreen ? 'el-icon-icon-fullscreen' : 'el-icon-icon-normal']" @click="fullScreen"></i>
+                <div class="tools-item">
+                  <i :class="['icon', isfullScreen ? 'el-icon-icon-fullscreen' : 'el-icon-icon-normal']" @click="fullScreen"></i>
+                </div>
               </el-tooltip>
 
               <lang-select></lang-select>
 
-              <el-dropdown trigger="hover">
-                <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>我的消息</el-dropdown-item>
-                  <el-dropdown-item @click.native="open">设置</el-dropdown-item>
-                  <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </el-col>
+              <user-drop :userdata="userData" class="userinfo"></user-drop>
+            </div>
         </div>
 
         <tags-view></tags-view>
+        <main-view></main-view>
 
-        <div class="viewBox">
-          <transition name="fade" mode="out-in">
-            <keep-alive :include="cachedViews">
-              <router-view></router-view>
-            </keep-alive>  
-          </transition>
-        </div>
       </div>
 
     </div>
@@ -81,10 +64,11 @@
 <script>
   import '@less/layout.less'
   import menuTree from './layout/menuTree'
+  import UserDrop from './layout/UserDrop'
   import TagsView from './layout/TagsView'
+  import MainView from './layout/MainView'
   import { mapGetters } from 'vuex'
   import Cookies from 'js-cookie'
-  import store from '@/vuex'
   import LangSelect from '@comp/lang'
   export default {
     name: 'Layout',
@@ -93,20 +77,17 @@
         layoutResize: '40px',
         isfullScreen: true,
         collapsed:false,
-        sysUserName: '',
-        sysUserAvatar: ''
+        userData: {}
       }
     },
     components: {
       TagsView,
+      UserDrop,
       menuTree,
+      MainView,
       LangSelect
     },
     computed: {
-      cachedViews () {
-        console.log(this.$store.state.tagsView.cachedViews)
-        return this.$store.state.tagsView.cachedViews
-      },
       fullscreenTip () {
         return this.isfullScreen ? this.$t('navbar.screenfull') : this.$t('navbar.screenNormal')
       },
@@ -140,38 +121,7 @@
           this.isfullScreen = true
         }
       },
-      open () {
-        this.$alert('这是一段内容', '标题名称', {
-          confirmButtonText: '确定',
-          customClass: 'abc',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            });
-          }
-        });
-      },
-      logout () {
-        var _this = this;
-        this.$confirm('确认退出吗?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          customClass: 'abc',
-          type: 'warning'
-        }).then(() => {
-          //sessionStorage.removeItem('user')
-          //_this.$router.push('/login')
-          store.dispatch('setToken', null)
-          store.dispatch('getInfo', false)
-          //console.log(store.getters.token)
-          
-          location.reload()//必须要reload否则会有很多奇怪的bug大坑一个
-          //_this.$router.push('/login')
-        }).catch(() => {
-
-        });
-      },
+      
       //折叠导航栏
       collapse () {
         this.collapsed=!this.collapsed
@@ -199,8 +149,7 @@
       var user = sessionStorage.getItem('info')
       if (user) {
         user = JSON.parse(user)
-        this.sysUserName = user.name || ''
-        this.sysUserAvatar = user.avatar || ''
+        this.userData = user
       }
       //Resize
       //let self = this
