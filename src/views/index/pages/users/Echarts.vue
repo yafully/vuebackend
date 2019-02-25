@@ -24,6 +24,7 @@
     import echarts from 'echarts'
 
     export default {
+        name: 'Echarts',
         data() {
             return {
                 chartColumn: null,

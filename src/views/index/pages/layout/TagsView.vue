@@ -1,5 +1,5 @@
 <template>
-  <div class="tags-view-container" height="34px">
+  <div class="tags-view-container">
     <scroll-panel ref="scrollPane" class="tags-view-wrapper">
       <router-link
         v-for="tag in visitedViews"
@@ -9,13 +9,19 @@
         :key="tag.path"
         tag="span"
         class="tags-view-item"
-        @click.middle.native="closeSelectedTag(tag)"
+        @click.middle.native="closeSelectedTag(tag)" 
+        @contextmenu.prevent.native="openMenu(tag, $event)"
 		>
-        {{ tag.name }}
-        <span v-if="!tag.meta.affix" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)" />
+        {{ $t(`routeName.${tag.name}`) }}
+        <span v-if="!tag.meta.noClose" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)" />
       </router-link>
     </scroll-panel>
 
+	<ul v-show="conMenuVisible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
+      <li @click="refreshSelectedTag(selectedTag)">Refresh</li>
+      <li v-if="selectedTag.meta && !selectedTag.meta.noClose" @click="closeSelectedTag(selectedTag)">Close</li>
+      <li @click="closeAllTags(selectedTag)">Close All</li>
+    </ul>
   </div>
 </template>
 
@@ -29,11 +35,11 @@ export default {
   },
   data () {
     return {
-      visible: false,
+      conMenuVisible: false,
       top: 0,
       left: 0,
       selectedTag: {},
-      affixTags: []
+      remainTags: []
     }
   },
   computed: {
@@ -50,23 +56,110 @@ export default {
     }
   },
   watch: {
-    $route() {
+    $route () {
       this.addTags()
-      //this.moveToCurrentTag()
 
+    },
+    conMenuVisible (value) {
+      if (value) {
+        document.body.addEventListener('click', this.closeMenu)
+      } else {
+        document.body.removeEventListener('click', this.closeMenu)
+      }
     }
   },
   methods: {
   	isActive (route) {
       return route.path === this.$route.path
     },
-  	addTags() {
+  	addTags () {
       const { name } = this.$route
       if (name) {
         this.$store.dispatch('addView', this.$route)
+        this.moveToCurrentTag()
       }
-      console.log(this.$store.state.tagsView.visitedViews)
+      //console.log(this.$store.state.tagsView.visitedViews)
+      //console.log(this.$store.state.tagsView.cachedViews)
       return false
+    },
+    moveToCurrentTag() {
+      let tags = this.$refs.tag
+      //console.log(this.$route.name)
+      //console.log(this.$route.path)
+      if(tags){
+	      this.$nextTick(() => {
+	        for (const tag of tags) {
+	          if (tag.to.path === this.$route.path) {
+	            this.$refs.scrollPane.moveToTarget(tag)
+	            break
+	          }
+	        }
+	      })
+      }
+    },
+    refreshSelectedTag(view) {
+      this.$store.dispatch('delCachedView', view).then(() => {
+        const { fullPath } = view
+
+        this.$nextTick(() => {
+          this.$router.replace({
+            path: '/redirect' + fullPath,
+            meta: {
+            	name: view.meta.title
+            }
+          })
+        })
+      })
+    },
+    closeSelectedTag(view) {
+      this.$store.dispatch('delView', view).then(({ visitedViews }) => {
+        if (this.isActive(view)) {
+          this.toLastView(visitedViews)
+        }
+        if (this.conMenuVisible) {
+          this.closeMenu()	
+        }
+      })
+    },
+    closeAllTags(view) {
+      this.$store.dispatch('delAllViews').then(({ visitedViews }) => {
+        if (this.remainTags.some(tag => tag.path === view.path)) {
+          return
+        }
+        this.toLastView(visitedViews)
+      })
+    },
+    toLastView(visitedViews) {
+      const latestView = visitedViews.slice(-1)[0]
+      if (latestView) {
+        this.$router.push(latestView)
+      } else {
+        // You can set another route
+        this.$router.push('/')
+      }
+    },
+    openMenu(tag, e) {
+      const menuMinWidth = 105
+      const offsetLeft = this.$el.getBoundingClientRect().left // container margin left
+      const offsetWidth = this.$el.offsetWidth // container width
+      const offsetHeight = this.$el.offsetHeight // container width
+      const maxLeft = offsetWidth - menuMinWidth // left boundary
+      const left = e.clientX - offsetLeft + 15 // 15: margin right
+
+      if (left > maxLeft) {
+        this.left = maxLeft
+      } else {
+        this.left = left
+      }
+      this.top = e.clientY - offsetHeight
+
+      this.conMenuVisible = true
+      this.selectedTag = tag
+      // console.log(this.selectedTag)
+      // console.log(this.conMenuVisible)
+    },
+    closeMenu() {
+      this.conMenuVisible = false
     }
   },
   mounted () {
@@ -77,7 +170,7 @@ export default {
 
 <style lang="less">
 .tags-view-container {
-  position:absolute;z-index:1;top:44px;left:0;	
+  position:absolute;z-index:2;top:44px;left:0;	
   box-sizing: border-box;	
   width: 100%;
   height: 30px;
@@ -116,5 +209,27 @@ export default {
       }
     }
   }
-}    
+  .contextmenu {
+    margin: 0;
+    background: #fff;
+    z-index: 100;
+    position: absolute;
+    list-style-type: none;
+    padding: 5px 0;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #333;
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
+    li {
+      margin: 0;
+      padding: 7px 16px;
+      cursor: pointer;
+      &:hover {
+        background: #eee;
+      }
+    }
+  }
+}
+
 </style>

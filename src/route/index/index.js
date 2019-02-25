@@ -11,6 +11,8 @@ import def from '@/lang/def'
 import Layout from '@/views/index/pages/'
 import Login from '@/views/index/pages/Login'
 import HomeMain from '@/views/index/pages/home/'
+//路由重定向(Reload)
+const Reloader = () => import('@/views/redirect/')
 //用户管理
 const Table = () => import('@/views/index/pages/users/Table')
 const Contacts = () => import('@/views/index/pages/users/Contacts')
@@ -23,13 +25,39 @@ const Featrues = () => import('@/views/index/pages/role/Featrues')
 
 Vue.use(VueRouter)
 let routeName = def.routeName
+
+//noCache 模块是否需要缓存标识
+//modName 模块名，用于缓存识别
+//leaf 单节点标识
+/**
+  *
+  *
+  * meta : {
+    roles: ['admin','editor']    will control the page roles (you can set multiple roles)
+    title: 'title'               the name show in Page title
+    noCache: true                if true, the page will no be cached(default is false)
+    noClose: false               if true, The TabTags item will not show close btn 
+    modName: String              The route component name, this will used in vuex cachedViews 
+  }    
+**/
 let defaultRouter = [
-  // { 
-  //   path: '/',
-  //   redirect: '/index',
-  //   hidden: true,
-  //   children: []
-  // },
+  {
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/redirect/:path*',
+        component: Reloader
+      }
+    ]
+  },
+  { 
+    path: '/',
+    redirect: '/index',
+    hidden: true,
+    children: []
+  },
   {
     path: '/login',
     component: Login,
@@ -49,7 +77,12 @@ let defaultRouter = [
         path: '/index',
         iconCls: 'el-icon-tickets', // 图标样式class
         name: routeName.home,
-        component: HomeMain
+        component: HomeMain,
+        meta: {
+            modName: 'Layout',
+            noClose:true,
+            title: routeName.home
+        }
       }
     ]
   }
@@ -74,6 +107,7 @@ let addRouter = [
                 name: routeName.userLsit,
                 iconCls: 'el-icon-users',
                 meta: {
+                    modName: 'Table',
                     role: ['superAdmin', 'admin'],
                     title: routeName.userLsit
                 },
@@ -86,6 +120,7 @@ let addRouter = [
                 name: routeName.contactUs,
                 iconCls: 'el-icon-contacts',
                 meta: {
+                    modName: 'Contacts',
                     role: ['superAdmin'],
                     title: routeName.contactUs
                 },
@@ -98,6 +133,7 @@ let addRouter = [
                 name: routeName.userSort,
                 iconCls: 'el-icon-sort',
                 meta: {
+                    modName: 'DragTabe',
                     role: ['superAdmin'],
                     title: routeName.userSort
                 },
@@ -110,6 +146,7 @@ let addRouter = [
                 name: routeName.userChart,
                 iconCls: 'el-icon-chart',
                 meta: {
+                    modName: 'Echarts',
                     role: ['superAdmin', 'admin'],
                     title: routeName.userChart
                 },
@@ -135,6 +172,7 @@ let addRouter = [
                 name: routeName.roleManage,
                 iconCls: 'el-icon-role',
                 meta: {
+                    modName: 'RolePage',
                     role: ['superAdmin','admin'],
                     title: routeName.roleManage
                 },
@@ -147,6 +185,7 @@ let addRouter = [
                 name: routeName.adminManage,
                 iconCls: 'el-icon-user-set',
                 meta: {
+                    modName: 'RoleUser',
                     role: ['superAdmin'],
                     title: routeName.adminManage
                 },
@@ -170,6 +209,7 @@ let addRouter = [
                         name: routeName.functionPrivilegeAllow,
                         iconCls: 'el-icon-user-auth',
                         meta: {
+                            modName: 'Featrues',
                             role: ['superAdmin'],
                             title: routeName.functionPrivilegeAllow
                         },
@@ -182,6 +222,7 @@ let addRouter = [
                         name: routeName.level3,
                         iconCls: 'el-icon-user-auth',
                         meta: {
+                            modName: 'Layout',
                             role: ['superAdmin'],
                             title: routeName.level3
                         },

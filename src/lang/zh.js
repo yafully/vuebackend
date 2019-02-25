@@ -16,6 +16,8 @@ export default {
 
   },
   routeName: {
+    noselect: '未选择功能节点',
+    undefined: '跳转',
     home: '仪表盘',
     userManage: '用户管理',
     userLsit: '用户列表',

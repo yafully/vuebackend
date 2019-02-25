@@ -49,7 +49,7 @@
 		return data
 	}
 	export default {
-	  name: '',
+	  name: 'Featrues',
 	  components: {
 	  	
 	  },
@@ -74,7 +74,7 @@
 	  },
 	  computed: {
 	  	nowAtive () {
-	  		return this.activeId ? this.activeName : '未选择功能节点'
+	  		return this.activeId ? this.activeName : 'noselect'
 	  	}
 	  },
 	  methods: {

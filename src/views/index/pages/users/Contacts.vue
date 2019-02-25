@@ -88,7 +88,7 @@
 <script>
 import { getTelephone, removeTelephone } from '@api/api';
 export default {
-	name: '',
+	name: 'Contacts',
 	components: {
 		
 	},

@@ -131,5 +131,4 @@ Util.parseDate = function (source) {
 	return new Date();
 }
 
-
 export { Util }

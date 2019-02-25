@@ -61,7 +61,7 @@
 <script>
 import Sortable from 'sortablejs'
 export default {
-  name: 'dragTabe',
+  name: 'DragTabe',
   data () {
     return {
       tableData: [{

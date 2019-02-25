@@ -15,6 +15,8 @@ export default {
     screenNormal: 'Exit full screen'
   },
   routeName: {
+    noselect: 'No featrue select',
+    undefined: 'Redirect',
     home: 'Home',
     userManage: 'User Manage',
     userLsit: 'User Lsit',

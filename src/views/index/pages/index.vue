@@ -1,6 +1,5 @@
 <template>
-    <div v-wechat-title="$route.meta.title" :class="['workspace', collapsed ? 'menu-collapsed' : 'menu-expanded']">
-      
+    <div v-wechat-title="$t(`routeName.${$route.meta.title}`)" :class="['workspace', collapsed ? 'menu-collapsed' : 'menu-expanded']">
       <el-scrollbar class="scrollbar-wrapper sidebar-container" ref="menuScroll">
 
           <el-header height="40px" class="header-left" v-text="collapsed ? `Logo` : $t('navbar.title')">
@@ -69,7 +68,9 @@
 
         <div class="viewBox">
           <transition name="fade" mode="out-in">
-            <router-view></router-view>
+            <keep-alive :include="cachedViews">
+              <router-view></router-view>
+            </keep-alive>  
           </transition>
         </div>
       </div>
@@ -86,7 +87,7 @@
   import store from '@/vuex'
   import LangSelect from '@comp/lang'
   export default {
-    name: 'Home',
+    name: 'Layout',
     data () {
       return {
         layoutResize: '40px',
@@ -102,6 +103,10 @@
       LangSelect
     },
     computed: {
+      cachedViews () {
+        console.log(this.$store.state.tagsView.cachedViews)
+        return this.$store.state.tagsView.cachedViews
+      },
       fullscreenTip () {
         return this.isfullScreen ? this.$t('navbar.screenfull') : this.$t('navbar.screenNormal')
       },
@@ -184,7 +189,7 @@
     },
     mounted () {
       // console.log(this.routers)
-      // console.log(11111)
+
       //console.log(store.getters.routers)
       //console.log(this.$store.state.routers)
       //console.log(this.$router.options.routes)
