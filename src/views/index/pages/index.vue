@@ -65,11 +65,12 @@
   import '@less/layout.less'
   import menuTree from './layout/menuTree'
   import UserDrop from './layout/UserDrop'
+  import LangSelect from './layout/LangSelect'
   import TagsView from './layout/TagsView'
   import MainView from './layout/MainView'
   import { mapGetters } from 'vuex'
   import Cookies from 'js-cookie'
-  import LangSelect from '@comp/lang'
+
   export default {
     name: 'Layout',
     data () {

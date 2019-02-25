@@ -6,7 +6,8 @@
  */
 //import Vue from 'vue'
 import 'babel-polyfill'
-import Vue from '@common/Permission'
+//import Vue from '@common/Permission'
+import Vue from 'vue'
 import store from '@/vuex'
 import router from '../../route/index/'
 import ElementUI from 'element-ui'

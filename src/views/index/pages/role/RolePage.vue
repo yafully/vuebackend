@@ -24,16 +24,23 @@
           <el-button
             size="mini"
             @click="handleEdit(scope.$index, scope.row)" 
-            v-role="['superAdmin','admin']">编辑</el-button>
+            v-permission="['superAdmin','admin']">编辑</el-button>
           <el-button
             size="mini"
             type="danger"
             @click="handleDelete(scope.$index, scope.row)" 
-            v-role="['superAdmin']">删除</el-button>
+            v-permission="['superAdmin']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     
+    <div>这个页面的功能按钮是根据权限显示的</div>
+    <div>
+      <div v-permission="['superAdmin']">超级管理员看得到我</div>
+      <div v-permission="['admin']">管理员看得到我</div>
+      <div v-permission="['superAdmin','admin']">管理员和超级管理员都看得到我</div>
+
+    </div>
     <!--编辑-->
     <el-dialog title="编辑角色" :visible.sync="editFormVisible" :append-to-body="true" :close-on-click-modal="false">
     	<!--基本信息编辑-->
@@ -71,9 +78,11 @@
   </div>
 </template>
 <script>
+  import permission from '@/directive/permission/' // 权限判断指令
   import { getRoleList, editRole, addRole, removeRole } from '@api/api'
   export default {
   	name: 'RolePage',
+    directives: { permission },//注册局部指令
     data () {
       return {
         listLoading: false,
