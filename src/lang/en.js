@@ -15,6 +15,7 @@ export default {
     screenNormal: 'Exit full screen'
   },
   routeName: {
+    notfound: 'Not Found',
     noselect: 'No featrue select',
     undefined: 'Redirect',
     home: 'Home',

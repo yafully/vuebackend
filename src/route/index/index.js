@@ -85,6 +85,26 @@ let defaultRouter = [
         }
       }
     ]
+  },
+  {
+    path: '/error',
+    name: 'error',
+    hidden: true,
+    component: Layout,
+    children: [
+      // {
+      //   path: '401',
+      //   component: () => import('@/views/errorPage/401'),
+      //   name: 'Page401',
+      //   meta: { title: 'page401', noCache: true }
+      // },
+      {
+        path: '404',
+        component: () => import('@views/error'),
+        name: routeName.notfound,
+        meta: { title: 'page404', noCache: true }
+      }
+    ]
   }
 ]
 
@@ -232,6 +252,14 @@ let addRouter = [
             }
         ]
     }
+    // ,
+    // {
+    //     path: '*',
+    //     redirect: '/error/404',
+    //     meta: {
+    //         role: ['superAdmin']
+    //     }
+    // }
 ]
 
 export default new VueRouter({

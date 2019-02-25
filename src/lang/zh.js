@@ -16,6 +16,7 @@ export default {
 
   },
   routeName: {
+    notfound: '页面不存在',
     noselect: '未选择功能节点',
     undefined: '跳转',
     home: '仪表盘',
