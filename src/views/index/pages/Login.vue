@@ -13,7 +13,8 @@
   	      <el-input type="text" v-model="ruleForm2.account" auto-complete="off" :placeholder="$t('login.account')"></el-input>
   	    </el-form-item>
   	    <el-form-item prop="checkPass">
-  	      <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" :placeholder="$t('login.password')"></el-input>
+  	      <el-input :type="passwordType" v-model="ruleForm2.checkPass" auto-complete="off" :placeholder="$t('login.password')"></el-input>
+          <i :class="['show-pwd', passwordType ? 'el-icon-eyeoff' : 'el-icon-eye']" @click="showPwd"></i>
   	    </el-form-item>
   	    <el-checkbox v-model="checked" checked class="remember">{{$t('login.remember')}}</el-checkbox>
   	    <el-form-item style="width:100%;">
@@ -64,6 +65,7 @@
       return {
         normalLogin:true,
         logining: false,
+        passwordType: 'password',
         ruleForm2: {
           account: 'super',
           checkPass: '123456'
@@ -85,6 +87,13 @@
       LangSelect
     },
     methods: {
+      showPwd () {
+        if (this.passwordType === 'password') {
+          this.passwordType = ''
+        } else {
+          this.passwordType = 'password'
+        }
+      },
       handleReset2() {
         this.$refs.ruleForm2.resetFields();
       },
