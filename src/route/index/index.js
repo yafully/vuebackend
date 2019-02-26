@@ -8,20 +8,21 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import def from '@/lang/def'
 
-import Layout from '@/views/index/pages/'
-import Login from '@/views/index/pages/Login'
-import HomeMain from '@/views/index/pages/home/'
+import Layout from '@views/index/pages/'
+import Login from '@views/index/pages/Login'
+import HomeMain from '@views/index/pages/home/'
 //路由重定向(Reload)
-const Reloader = () => import('@/views/redirect/')
+const Reloader = () => import('@views/redirect/')
+const Guide = () => import('@views/index/pages/guide/') 
 //用户管理
-const Table = () => import('@/views/index/pages/users/Table')
-const Contacts = () => import('@/views/index/pages/users/Contacts')
-const Echarts = () => import('@/views/index/pages/users/Echarts')
-const DragTable = () => import('@/views/index/pages/users/DragTable')
+const Table = () => import('@views/index/pages/users/Table')
+const Contacts = () => import('@views/index/pages/users/Contacts')
+const Echarts = () => import('@views/index/pages/users/Echarts')
+const DragTable = () => import('@views/index/pages/users/DragTable')
 //权限管理
-const RolePage = () => import('@/views/index/pages/role/RolePage')
-const RoleUser = () => import('@/views/index/pages/role/RoleUser')
-const Featrues = () => import('@/views/index/pages/role/Featrues')
+const RolePage = () => import('@views/index/pages/role/RolePage')
+const RoleUser = () => import('@views/index/pages/role/RoleUser')
+const Featrues = () => import('@views/index/pages/role/Featrues')
 
 Vue.use(VueRouter)
 let routeName = def.routeName
@@ -82,6 +83,25 @@ let defaultRouter = [
             modName: 'Layout',
             noClose:true,
             title: routeName.home
+        }
+      }
+    ]
+  },
+  {
+    path: '/guide',
+    name:'',
+    component: Layout,
+    redirect: '/guide/index',
+    hidden: true,
+    children: [
+      {
+        path: 'index',
+        component: Guide,
+        name: routeName.guide,
+        meta: { 
+            modName: 'Guide',
+            title: routeName.guide, 
+            noCache: true 
         }
       }
     ]
@@ -254,7 +274,7 @@ let addRouter = [
         ]
     }
     ,
-    { path: '*', redirect: '/error/404', hidden: true, children: []}
+    { path: '*', redirect: '/error/404', hidden: true, name: '', children: []}
 ]
 
 export default new VueRouter({

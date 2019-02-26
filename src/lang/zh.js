@@ -12,7 +12,8 @@ export default {
   navbar: {
     title: '后台管理系统',
     screenfull: '全屏',
-    screenNormal: '退出全屏'
+    screenNormal: '退出全屏',
+    guide: '系统引导'
 
   },
   tagView: {
@@ -25,8 +26,9 @@ export default {
     page404: '页面不存在',
     notfound: '页面不存在',
     noselect: '未选择功能节点',
-    undefined: '跳转',
+    undefined: ' ',
     home: '仪表盘',
+    guide: '系统引导',
     userManage: '用户管理',
     userLsit: '用户列表',
     contactUs: '联系我们',

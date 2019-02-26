@@ -29,7 +29,7 @@
         <div class="header"> 
             <div class="doTd">
               <div class="tools-item">
-                <i class="el-icon-menu" @click.prevent="collapse"></i>
+                <i :class="[collapsed ? 'el-icon-menuopen' : 'el-icon-menu']" @click.prevent="collapse"></i>
               </div>
               <div class="tools-item breadcrumb-inner">
                 <el-breadcrumb separator="/">
@@ -41,6 +41,7 @@
             </div>
 
             <div class="doTd head-right-tools">
+              
               <el-tooltip class="item" effect="dark" :content="fullscreenTip" placement="bottom">
                 <div class="tools-item">
                   <i :class="['icon', isfullScreen ? 'el-icon-icon-fullscreen' : 'el-icon-icon-normal']" @click="fullScreen"></i>
@@ -48,6 +49,14 @@
               </el-tooltip>
 
               <lang-select></lang-select>
+              
+              <el-tooltip class="item" effect="dark" :content="$t(`navbar.guide`)" placement="bottom">
+                <div class="tools-item">
+                  <router-link to="/guide">
+                    <i class="el-icon-question"></i>
+                  </router-link>
+                </div>
+              </el-tooltip>
 
               <user-drop :userdata="userData" class="userinfo"></user-drop>
             </div>

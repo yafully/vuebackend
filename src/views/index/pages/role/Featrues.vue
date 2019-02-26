@@ -37,6 +37,10 @@
 
 <script>
 	import {addRouter} from '@/route/index'
+	let filterRouter = addRouter.filter(r => {
+        return !r.hidden
+    })
+    //console.log(filterRouter)
 	function saveR (data, param) {
 		for (let i = 0; i < data.length; i++) {
 			if (data[i].id === param.id) {
@@ -60,7 +64,7 @@
 	    	activeName: '',
 	    	activeData: {},
 	    	//Tree	
-			featrues: addRouter,
+			featrues: filterRouter,
 			defaultProps: {
 				label: 'name',
 				role: 'meta.role'

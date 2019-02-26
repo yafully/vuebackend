@@ -12,7 +12,8 @@ export default {
   navbar: {
     title: 'vue-cms',
     screenfull: 'Full screen',
-    screenNormal: 'Exit full screen'
+    screenNormal: 'Exit full screen',
+    guide: 'guide'
   },
   tagView: {
     fresh: 'fresh',
@@ -26,6 +27,7 @@ export default {
     noselect: 'noroute',
     undefined: 'redirect',
     home: 'home',
+    guide: 'guide',
     userManage: 'userManage',
     userLsit: 'userLsit',
     contactUs: 'contactUs',

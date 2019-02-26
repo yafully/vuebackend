@@ -12,7 +12,8 @@ export default {
   navbar: {
     title: 'Backend-CMS',
     screenfull: 'Full screen',
-    screenNormal: 'Exit full screen'
+    screenNormal: 'Exit full screen',
+    guide: 'Guide'
   },
   tagView: {
     fresh: 'Fresh',
@@ -26,6 +27,7 @@ export default {
     noselect: 'No featrue select',
     undefined: 'Redirect',
     home: 'Home',
+    guide: 'Guide',
     userManage: 'User Manage',
     userLsit: 'User Lsit',
     contactUs: 'Contact Us',
