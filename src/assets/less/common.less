@@ -1,4 +1,24 @@
 @import url("../css/iconfont.css");
+@TxtColor:#666;//普通文本
+@TitColor:#3a3a3a;//标题文本
+@linkColor: #409EFF;
+@linkColorHover: #3576ba;
+
+.ani(@prop:all 500ms ease){
+    -webkit-transition:@prop;-moz-transition:@prop;-o-transition:@prop;transition:@prop;
+}
+
+a:link,a:visited {color: @linkColor;text-decoration: none;}
+a:hover {color: @linkColorHover;text-decoration:none;}
+.anilink{
+    position:relative;overflow: hidden;
+    &:after{ position:absolute; width:0; height:1px; left: auto;right:0;bottom:0;background:@linkColor;.ani;content:''}
+    &:hover:after{left:0;right:auto;width:100%;}
+}
+
+.clear:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.clear{zoom:1;}
+
 .left{text-align:left}
 .right{text-align:right}
 .center{text-align:center}

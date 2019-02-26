@@ -18,9 +18,9 @@
     </scroll-panel>
 
 	<ul v-show="conMenuVisible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
-      <li @click="refreshSelectedTag(selectedTag)">Refresh</li>
-      <li v-if="selectedTag.meta && !selectedTag.meta.noClose" @click="closeSelectedTag(selectedTag)">Close</li>
-      <li @click="closeAllTags(selectedTag)">Close All</li>
+      <li @click="refreshSelectedTag(selectedTag)" v-text="$t('tagView.fresh')"></li>
+      <li v-if="selectedTag.meta && !selectedTag.meta.noClose" @click="closeSelectedTag(selectedTag)" v-text="$t('tagView.close')"></li>
+      <li @click="closeAllTags(selectedTag)" v-text="$t('tagView.closeAll')"></li>
     </ul>
   </div>
 </template>

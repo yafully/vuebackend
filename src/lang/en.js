@@ -5,7 +5,7 @@ export default {
   login: {
     title: 'Web Manage System',
     account: 'Account',
-    password: 'Pwd',
+    password: 'Password',
     remember: 'Remember',
     login: 'Login'
   },
@@ -14,7 +14,14 @@ export default {
     screenfull: 'Full screen',
     screenNormal: 'Exit full screen'
   },
+  tagView: {
+    fresh: 'Fresh',
+    close: 'Close',
+    closeAll: 'Close All'
+  },
   routeName: {
+    error: '404',
+    page404: 'Not Found',
     notfound: 'Not Found',
     noselect: 'No featrue select',
     undefined: 'Redirect',

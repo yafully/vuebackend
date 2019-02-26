@@ -3,18 +3,25 @@ export default {
     name: 'yu'
   },
   login: {
-    title: 'Web Manage System',
-    account: 'Account',
-    password: 'Pwd',
-    remember: 'Remember',
-    login: 'Login'
+    title: 'title',
+    account: 'account',
+    password: 'password',
+    remember: 'remember',
+    login: 'login'
   },
   navbar: {
     title: 'vue-cms',
     screenfull: 'Full screen',
     screenNormal: 'Exit full screen'
   },
+  tagView: {
+    fresh: 'fresh',
+    close: 'close',
+    closeAll: 'closeAll'
+  },
   routeName: {
+    error: 'error',
+    page404: 'page404',
     notfound: 'notfound',
     noselect: 'noroute',
     undefined: 'redirect',

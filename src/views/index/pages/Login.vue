@@ -1,28 +1,68 @@
 <template>
-	<div v-wechat-title="$route.meta.title">
-	  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
-	    <h3 class="title">系统登录</h3>
-	    <el-form-item prop="account">
-	      <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
-	    </el-form-item>
-	    <el-form-item prop="checkPass">
-	      <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码"></el-input>
-	    </el-form-item>
-	    <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
-	    <el-form-item style="width:100%;">
-	      <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
-	      <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
-	    </el-form-item>
-	  </el-form>
+	<div v-wechat-title="$route.meta.title" id="login">
+    <el-card shadow="always" class="login-box" v-if="normalLogin">
+      <div slot="header" class="clear formTit">
+        <span class="titIconbox">
+          <span class="scan-tip">扫码登录</span>
+          <i class="el-icon-saoma icon" @click="normalLogin = !normalLogin"></i>
+        </span>
+      </div>
+  	  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
+  	    <h3 class="title" v-text="$t('login.title')"></h3>
+  	    <el-form-item prop="account">
+  	      <el-input type="text" v-model="ruleForm2.account" auto-complete="off" :placeholder="$t('login.account')"></el-input>
+  	    </el-form-item>
+  	    <el-form-item prop="checkPass">
+  	      <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" :placeholder="$t('login.password')"></el-input>
+  	    </el-form-item>
+  	    <el-checkbox v-model="checked" checked class="remember">{{$t('login.remember')}}</el-checkbox>
+  	    <el-form-item style="width:100%;">
+  	      <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining" v-text="$t('login.login')"></el-button>
+  	    </el-form-item>  
+  	  </el-form>
+      <div class="login-links">
+        <router-link class="anilink" to="#">忘记密码</router-link>
+        <router-link class="anilink" to="#">忘记会员名</router-link>
+        <router-link class="anilink" to="#">免费注册</router-link>
+      </div>
+    </el-card>
+
+    <el-card shadow="always" class="login-box" v-else>
+      <div slot="header" class="clear formTit">
+        <span class="titIconbox">
+          <span class="scan-tip">普通登录</span>
+          <i class="el-icon-computer icon" @click="normalLogin = !normalLogin"></i>
+        </span>
+      </div>
+      <h3 class="title" v-text="`扫码登录`"></h3>
+      <div class="scan-box">
+        <img src="https://img.alicdn.com/tfscom/TB1ivYYyHvpK1RjSZFqwu3XUVXa.png">
+        <div class="scan-info">
+          <span class="vm">
+            <i class="el-icon-saomafull"></i>
+          </span>
+          <span class="vm">
+            打开 微信 扫一扫登录
+          </span>  
+        </div>
+      </div>
+      <div class="login-links">
+        <router-link class="anilink" to="#">免费注册</router-link>
+      </div>
+    </el-card>  
+    <lang-select class="loginLang"></lang-select>
 	</div>
 </template>
 
 <script>
+  import '@less/login.less'
   import { requestLogin } from '@/api/api';
+  import LangSelect from './layout/LangSelect'
   //import NProgress from 'nprogress'
   export default {
     data() {
       return {
+        normalLogin:true,
         logining: false,
         ruleForm2: {
           account: 'super',
@@ -40,6 +80,9 @@
         },
         checked: true
       };
+    },
+    components: {
+      LangSelect
     },
     methods: {
       handleReset2() {
@@ -110,26 +153,6 @@
 
 </script>
 
-<style lang="scss" scoped>
-  .login-container {
-    /*box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);*/
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    background-clip: padding-box;
-    margin: 180px auto;
-    width: 350px;
-    padding: 35px 35px 15px 35px;
-    background: #fff;
-    border: 1px solid #eee;
-    
-    .title {
-      margin: 0px auto 40px auto;
-      text-align: center;
-      color: #505458;
-    }
-    .remember {
-      margin: 0px 0px 35px 0px;
-    }
-  }
+<style lang="less">
+
 </style>

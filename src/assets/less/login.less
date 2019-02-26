@@ -1,0 +1,50 @@
+  @import url("./common.less");
+  .login-box {
+    position:relative;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    background-clip: padding-box;
+    margin: 180px auto;
+    //margin: 0 auto;
+    width: 350px;
+    padding: 35px 35px 15px 35px;
+    background: #fff;
+    border: 1px solid #eee;
+    .el-card__header{
+      padding:0;border:none;
+      .formTit{height: 40px;position:relative;
+        .titIconbox{float:right;}
+        .icon{font-size: 40px;cursor:pointer;}
+      }
+    }
+    .el-card__body{padding:0 0 1.5em;}
+    
+    .title {
+      margin: 0px auto 40px auto;
+      text-align: center;
+      color: #505458;
+    }
+    .remember {
+      margin: 0px 0px 35px 0px;
+    }
+    .scan-box{
+      text-align:center;
+      .el-icon-saomafull{font-size:40px;}
+    }
+    .scan-tip{
+      position: absolute;right:50px;top:0;padding:5px 10px;border-radius:2px;font-size:12px;border:1px solid #409eff;color:#409eff;
+      &:after,&:before{content:'◆';position:absolute;z-index:6;top:0;bottom:0;margin:auto;font:14px/1 'simsun';width:14px;height:14px;}
+      &:after{right:-8px;color:#fff;}
+      &:before{right:-9px;color:#409eff;}
+    }
+    .scan-info{padding:.5em 0;color:#999;
+      span + span{padding-left: 5px;}
+    }
+    .login-links{.right;
+      a + a {margin-left: 5px;}
+    }
+  }
+  .loginLang{
+    position:absolute;right:3%;top:3%;font-size:20px;
+  }

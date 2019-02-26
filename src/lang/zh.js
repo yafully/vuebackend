@@ -3,7 +3,7 @@ export default {
     name: '喻'
   },
   login: {
-    title: '后台管理系统',
+    title: '系统登录',
     account: '账号',
     password: '密码',
     remember: '记住密码',
@@ -15,7 +15,14 @@ export default {
     screenNormal: '退出全屏'
 
   },
+  tagView: {
+    fresh: '刷新',
+    close: '关闭',
+    closeAll: '关闭全部'
+  },
   routeName: {
+    error: '404',
+    page404: '页面不存在',
     notfound: '页面不存在',
     noselect: '未选择功能节点',
     undefined: '跳转',
