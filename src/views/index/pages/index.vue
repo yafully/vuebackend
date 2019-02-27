@@ -77,7 +77,7 @@
   import LangSelect from './layout/LangSelect'
   import TagsView from './layout/TagsView'
   import MainView from './layout/MainView'
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapState } from 'vuex'
   import Cookies from 'js-cookie'
 
   export default {
@@ -101,6 +101,7 @@
       fullscreenTip () {
         return this.isfullScreen ? this.$t('navbar.screenfull') : this.$t('navbar.screenNormal')
       },
+      ...mapState(['layout']),
       ...mapGetters(['routers']) //展开vuex里面的getter对象内的routers渲染菜单
     },
     methods: {
@@ -134,7 +135,9 @@
       
       //折叠导航栏
       collapse () {
-        this.collapsed=!this.collapsed
+        this.$store.dispatch('toggleSideBar')
+        let { opened } = this.layout.sidebar
+        this.collapsed = opened
       },
       handleopen() {
         //console.log('handleopen');
@@ -148,14 +151,14 @@
       }
     },
     mounted () {
-      // console.log(this.routers)
+      
 
       //console.log(store.getters.routers)
       //console.log(this.$store.state.routers)
       //console.log(this.$router.options.routes)
       //console.log(this.$route.matched)
       //获取UserInfo
-      
+      this.collapsed = this.layout.sidebar.opened
       var user = sessionStorage.getItem('info')
       if (user) {
         user = JSON.parse(user)

@@ -36,7 +36,7 @@ router.beforeEach((to, from, next) => {
       next({path: '/'})
     } else {
       if (!store.getters.info.role) {
-        getAddRouters()
+        getAddRouters(to)
       }else{
         next()
       }
@@ -48,7 +48,7 @@ router.beforeEach((to, from, next) => {
     next({path: '/login'})
   }
 
-  async function getAddRouters () {
+  async function getAddRouters (to) {
     // console.log(store.getters.token)
     // console.log(store.state.token)
     await Role()
@@ -58,7 +58,8 @@ router.beforeEach((to, from, next) => {
     // console.log(store.getters.info.role)
     await store.dispatch('newRoutes', store.getters.info.role)
     await router.addRoutes(store.getters.addRouters)
-    next({path: '/index'})
+    //next({path: '/index'})
+    next({ ...to, replace: true }) // hack方法 确保addRoutes已完成,页面刷新时不返回首页而是定位到地址栏里面的url
   }
 
   function Role () {

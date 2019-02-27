@@ -105,7 +105,25 @@ export default {
   },
   mounted () {
   	this.initChart()
-  	//console.log(this.$el)
+  	if (this.autoResize) {
+      window.addEventListener('resize', () => {
+        setTimeout(() => {
+          if (this.chart) {
+            this.chart.resize()
+          }
+        }, 100)
+      })
+    }
+  },
+  beforeDestroy() {
+    if (!this.chart) {
+      return
+    }
+    if (this.autoResize) {
+      window.removeEventListener('resize', this.__resizeHandler)
+    }
+    this.chart.dispose()
+    this.chart = null
   }
 }
 </script>
