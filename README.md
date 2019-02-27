@@ -1,7 +1,16 @@
 # vuebackend
 Vue‘s Backend and Frontend Personal  
-基于VueCli3的Vue全家桶 + Element UI + Echarts 多页面多路由前+后端脚手架  
+基于VueCli3的Vue全家桶 + Element UI 多页面多路由前+后端脚手架  
+# 相关组件
+Echarts
 数据由MockJS模拟  
+driver.js  
+axios  
+sortablejs  
+vue-i18n  
+vue-wechat-title  
+js-cookie  
+
 各页面入口文件为app.js,模版文件为view下面各模块文件夹内的任意html文件  
 # 兼容低版本的IE
 需要引入babel-polyfill
