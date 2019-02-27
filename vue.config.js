@@ -124,10 +124,14 @@ module.exports = {
     //config.entry('app').add('babel-polyfill')
   },
 
-  configureWebpack: () => {}, // CSS 相关选项
-  // configureWebpack: (config) => {
-  //   config.entry.app = ['babel-polyfill']//配置polyfill贱兼容IE
-  // },
+  //configureWebpack: () => {}, // CSS 相关选项
+  configureWebpack: config => {
+      //配置vux-loader
+      require('vux-loader').merge(config, {
+          options: {},
+          plugins: ['vux-ui']
+      })
+  },
 
   css: {
     // 是否将组件中的 CSS 提取至一个独立的 CSS 文件中,当作为一个库构建时，你也可以将其设置为 false 免得用户自己导入 CSS
