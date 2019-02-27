@@ -76,3 +76,7 @@ http://localhost:8888/project/#/login
 Frontend  
 http://localhost:8888/project/about.html
 ```
+### Online (Temporary address) 
+```
+http://59.175.109.211:8081/awbridal/project/index.html#/
+```
