@@ -117,13 +117,10 @@ export default {
         switch (j) {
           case 'birth':
             return Util.parseDate(v[j])
-          break;
           case 'sex':
             return v[j] == 1 ? '男' : v[j] == 0 ? '女' : '未知'
-          break;
           default:
             return v[j]
-          break;
         }
       }))
     },

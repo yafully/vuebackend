@@ -41,6 +41,9 @@
             </div>
 
             <div class="doTd head-right-tools">
+              <div class="tools-item">
+                <i :class="[drawerShow ? 'el-icon-slideopen' : 'el-icon-slideclose']" @click="changeDrawerShow"></i>
+              </div>
               
               <el-tooltip class="item" effect="dark" :content="fullscreenTip" placement="bottom">
                 <div class="tools-item">
@@ -67,6 +70,17 @@
 
       </div>
 
+      <drawer :show="drawerShow" 
+      pos="right" 
+      tran="overlay"
+      @change-show="changeDrawerShow"
+      @on-hide="onHide"
+      @on-show="onShow">
+        <div class="layout" slot="drawer" >
+          <h2>Im'a Drawer</h2>
+        </div>
+      </drawer>
+
     </div>
 </template>
 
@@ -77,6 +91,7 @@
   import LangSelect from './layout/LangSelect'
   import TagsView from './layout/TagsView'
   import MainView from './layout/MainView'
+  import Drawer from '@comp/drawer/'
   import { mapGetters, mapState } from 'vuex'
   import Cookies from 'js-cookie'
 
@@ -84,14 +99,15 @@
     name: 'Layout',
     data () {
       return {
-        layoutResize: '40px',
         isfullScreen: true,
         collapsed:false,
         withoutAnimation: true,
+        drawerShow: true,
         userData: {}
       }
     },
     components: {
+      Drawer,
       TagsView,
       UserDrop,
       menuTree,
@@ -154,6 +170,17 @@
       },
       handleselect (a, b) {
 
+      },
+      //Drawer
+      onHide() {
+        console.log('hide')
+      },
+      changeDrawerShow () {
+        this.drawerShow = !this.drawerShow;
+        //console.log('drawer was changed from components')
+      },
+      onShow() {
+        console.log('show');
       }
     },
     mounted () {
