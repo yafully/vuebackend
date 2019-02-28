@@ -1,5 +1,5 @@
 <template>
-    <div v-wechat-title="$t(`routeName.${$route.meta.title}`)" :class="['workspace', collapsed ? 'menu-collapsed' : 'menu-expanded']">
+    <div v-wechat-title="$t(`routeName.${$route.meta.title}`)" :class="['workspace', collapsed ? 'menu-collapsed' : 'menu-expanded', withoutAnimation ? 'withoutAnimation' : '']">
       <el-scrollbar class="scrollbar-wrapper sidebar-container" ref="menuScroll">
 
           <div class="header header-left" v-text="collapsed ? `Logo` : $t('navbar.title')"></div>
@@ -87,6 +87,7 @@
         layoutResize: '40px',
         isfullScreen: true,
         collapsed:false,
+        withoutAnimation: true,
         userData: {}
       }
     },
@@ -98,6 +99,11 @@
       LangSelect
     },
     computed: {
+      // mainClass () {
+      //   return {
+
+      //   }
+      // },
       fullscreenTip () {
         return this.isfullScreen ? this.$t('navbar.screenfull') : this.$t('navbar.screenNormal')
       },
@@ -136,8 +142,9 @@
       //折叠导航栏
       collapse () {
         this.$store.dispatch('toggleSideBar')
-        let { opened } = this.layout.sidebar
+        let { opened, withoutAnimation } = this.layout.sidebar
         this.collapsed = opened
+        this.withoutAnimation = withoutAnimation
       },
       handleopen() {
         //console.log('handleopen');
@@ -146,19 +153,18 @@
         //console.log('handleclose');
       },
       handleselect (a, b) {
-        console.log(a)
-        console.log(b)
+
       }
     },
     mounted () {
-      
-
       //console.log(store.getters.routers)
       //console.log(this.$store.state.routers)
       //console.log(this.$router.options.routes)
       //console.log(this.$route.matched)
       //获取UserInfo
       this.collapsed = this.layout.sidebar.opened
+      this.withoutAnimation =  this.layout.sidebar.withoutAnimation
+
       var user = sessionStorage.getItem('info')
       if (user) {
         user = JSON.parse(user)

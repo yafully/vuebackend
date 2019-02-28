@@ -9,18 +9,14 @@ const Layout = {
 	state: {
 		sidebar: {
 		  opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
-		  withoutAnimation: false
+		  withoutAnimation: true
 		}
 	},
 	mutations: {
 		toggleSideBar: state => {
 	      state.sidebar.opened = !state.sidebar.opened
 	      state.sidebar.withoutAnimation = false
-	      if (state.sidebar.opened) {
-	        Cookies.set('sidebarStatus', 1)
-	      } else {
-	        Cookies.set('sidebarStatus', 0)
-	      }
+	      Cookies.set('sidebarStatus', state.sidebar.opened ? 1 : 0)
 	    },
 	    closeSideBar: (state, withoutAnimation) => {
 	      Cookies.set('sidebarStatus', 0)
