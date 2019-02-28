@@ -120,7 +120,7 @@ module.exports = {
     config.resolve.alias.set('@common', resolve('src/common'))
     config.resolve.alias.set('@comp', resolve('src/components'))
     config.resolve.alias.set('@views', resolve('src/views'))
-
+    config.resolve.alias.set('@vendor', resolve('src/vendor'))
     //config.entry('app').add('babel-polyfill')
   },
 

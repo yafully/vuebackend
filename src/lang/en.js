@@ -38,6 +38,9 @@ export default {
     adminManage: 'Admin Manage',
     functionPrivilege: 'Function Privilege',
     functionPrivilegeAllow: 'Function Privilege Allow',
-    level3: 'level3'
+    level3: 'level3',
+    excel: 'excel',
+    exportExcel: 'Export Excel',
+    importExcel: 'Import Excel'
   }
 }

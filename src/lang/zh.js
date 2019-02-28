@@ -39,6 +39,9 @@ export default {
     adminManage: '管理员管理',
     functionPrivilege: '功能权限',
     functionPrivilegeAllow: '功能权限分配',
-    level3: '三级菜单'
+    level3: '三级菜单',
+    excel: 'Excel',
+    exportExcel: '导出 Excel',
+    importExcel: '导入 Excel'
   }
 }

@@ -163,7 +163,7 @@
       //console.log(this.$route.matched)
       //获取UserInfo
       this.collapsed = this.layout.sidebar.opened
-      this.withoutAnimation =  this.layout.sidebar.withoutAnimation
+      this.withoutAnimation = this.layout.sidebar.withoutAnimation
 
       var user = sessionStorage.getItem('info')
       if (user) {

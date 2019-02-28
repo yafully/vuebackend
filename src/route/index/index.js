@@ -23,6 +23,8 @@ const DragTable = () => import('@views/index/pages/users/DragTable')
 const RolePage = () => import('@views/index/pages/role/RolePage')
 const RoleUser = () => import('@views/index/pages/role/RoleUser')
 const Featrues = () => import('@views/index/pages/role/Featrues')
+//Excel Import & Export
+const ExcelExport = () => import('@views/index/pages/excel/Export')
 
 Vue.use(VueRouter)
 let routeName = def.routeName
@@ -272,8 +274,33 @@ let addRouter = [
                 ]
             }
         ]
-    }
-    ,
+    },
+    {
+        id: 'f4000',
+        path: '/excel',
+        component: Layout,
+        name: routeName.excel,
+        iconCls: 'el-icon-excel',//图标样式class
+        meta: {
+            role: ['superAdmin','admin'],
+            title: routeName.excel
+        },
+        children: [
+            { 
+                id: 'f4001',
+                path: '/export', 
+                component: ExcelExport, 
+                name: routeName.exportExcel,
+                iconCls: 'el-icon-export',
+                meta: {
+                    modName: 'ExcelExport',
+                    role: ['superAdmin','admin'],
+                    title: routeName.exportExcel
+                },
+                children: []
+            }        
+        ]
+    },
     { path: '*', redirect: '/error/404', hidden: true, name: '', children: []}
 ]
 
