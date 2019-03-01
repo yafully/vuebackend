@@ -72,12 +72,15 @@
 
       <drawer :show="drawerShow" 
       pos="right" 
-      tran="overlay"
+      :overlay="true"
       @change-show="changeDrawerShow"
       @on-hide="onHide"
       @on-show="onShow">
         <div class="layout" slot="drawer" >
           <h2>Im'a Drawer</h2>
+          123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>
+          123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>
+          123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>123<br/>
         </div>
       </drawer>
 
@@ -100,9 +103,9 @@
     data () {
       return {
         isfullScreen: true,
-        collapsed:false,
+        collapsed: false,
         withoutAnimation: true,
-        drawerShow: true,
+        drawerShow: false,
         userData: {}
       }
     },
@@ -173,14 +176,14 @@
       },
       //Drawer
       onHide() {
-        console.log('hide')
+        //console.log('hide')
       },
       changeDrawerShow () {
         this.drawerShow = !this.drawerShow;
         //console.log('drawer was changed from components')
       },
       onShow() {
-        console.log('show');
+        //console.log('show');
       }
     },
     mounted () {
@@ -199,10 +202,13 @@
       }
       //Resize
       //let self = this
-      window.addEventListener('resize', () => {
-        setTimeout(() => {
-          this.$refs.menuScroll.update()
-        }, 500)
+      this.$nextTick(function(){
+
+        window.addEventListener('resize', () => {
+          setTimeout(() => {
+            this.$refs.menuScroll.hasOwnProperty('update') && this.$refs.menuScroll.update()
+          }, 500)
+        })
       })
       
     }
