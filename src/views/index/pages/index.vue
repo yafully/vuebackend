@@ -33,9 +33,9 @@
               </div>
               <div class="tools-item breadcrumb-inner">
                 <el-breadcrumb separator="/">
-                  <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="'bread'+index">
-                    {{ item.name !=='' ? $t(`routeName.${item.name}`) :'' }}
-                  </el-breadcrumb-item>
+                    <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="'bread'+index">
+                      {{ item.name !=='' ? $t(`routeName.${item.name}`) :'' }}
+                    </el-breadcrumb-item>
                 </el-breadcrumb>
               </div>
             </div>

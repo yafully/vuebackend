@@ -5,7 +5,7 @@
  */
  const tagsView = {
   state: {
-    visitedViews: [],
+    visitedViews: [],//sessionStorage.getItem('tagsView') ? JSON.parse(sessionStorage.getItem('tagsView')) : 
     cachedViews: []
   },
   mutations: {

@@ -26,8 +26,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import ScrollPanel from '@comp/scrollPanel/'
+import path from 'path'
 export default {
   name: '',
   components: {
@@ -51,14 +52,14 @@ export default {
     visitedViews () {
       return this.$store.state.tagsView.visitedViews
     },
-    routers () {
-      return this.$store.state.permission.routers
-    }
+    // routers () {
+    //   return this.$store.state.routerData.addRouters
+    // }
+    ...mapGetters(['routers'])
   },
   watch: {
     $route () {
       this.addTags()
-
     },
     conMenuVisible (value) {
       if (value) {
@@ -71,6 +72,41 @@ export default {
   methods: {
   	isActive (route) {
       return route.path === this.$route.path
+    },
+    filterNoCloseTags(routes, basePath = '/') {
+      let tags = []
+      routes.forEach(route => {
+
+        if(!route.hidden) {
+          if (route.children && route.meta && route.meta.noClose) {
+            console.log(route.path)
+            tags.push({
+              path: path.resolve(basePath, route.path),
+              name: route.name,
+              meta: { ...route.meta }
+            })
+          }
+          if (route.children && route.children.length >0) {
+            const tempTags = this.filterNoCloseTags(route.children, route.path)
+            if (tempTags.length >= 1) {
+              tags = [...tags, ...tempTags]
+            }
+          } 
+        }
+      })
+      return tags
+    },
+    //初始化默认选项卡
+    initTags () {
+      
+      const remainTags = this.remainTags = this.filterNoCloseTags(this.routers)
+      //console.log(remainTags)
+      for (const tag of remainTags) {
+        // Must have tag name
+        if (tag.name) {
+          this.$store.dispatch('addVisitedView', tag)
+        }
+      }
     },
   	addTags () {
       const { name } = this.$route
@@ -163,6 +199,7 @@ export default {
     }
   },
   mounted () {
+    this.initTags()//获取永不关闭的标签
   	this.addTags()
   }
 }

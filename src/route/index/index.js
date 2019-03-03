@@ -69,9 +69,9 @@ let defaultRouter = [
     children: []
   },
   {
-    path: '/',
+    path: '/home',
     iconCls: 'el-icon-tickets', // 图标样式class
-    redirect: '/index',
+    redirect: '/home/index',
     name:'',
     leaf: true,//只有一个节点
     component: Layout,
@@ -85,7 +85,8 @@ let defaultRouter = [
             modName: 'Layout',
             noClose:true,
             title: routeName.home
-        }
+        },
+        children: []
       }
     ]
   },
@@ -97,14 +98,15 @@ let defaultRouter = [
     hidden: true,
     children: [
       {
-        path: 'index',
+        path: '/index',
         component: Guide,
         name: routeName.guide,
         meta: { 
             modName: 'Guide',
             title: routeName.guide, 
             noCache: true 
-        }
+        },
+        children: []
       }
     ]
   },
