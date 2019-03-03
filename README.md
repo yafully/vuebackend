@@ -10,18 +10,22 @@ sortablejs
 vue-i18n  
 vue-wechat-title  
 js-cookie  
+xlsx  
+file-saver
 
 各页面入口文件为app.js,模版文件为view下面各模块文件夹内的任意html文件  
 # 兼容低版本的IE
 需要引入babel-polyfill
 # Featrues  
+多语言国际化  
 多级菜单
 动态鉴权构建菜单  
 多标签页工作区  
 标签级别权限控制  
-# Todo
 缓存机制  
-数据导入、导出
+数据导入、导出  
+系统引导
+# Todo  
 富文本编辑器
 
 If you find it useful, please start this project ~
@@ -38,9 +42,16 @@ If you find it useful, please start this project ~
           |---images
           |---less
         |---common 公共模块目录
-        |---components组件
+        |---components组件  
+          |---charts 图表组件封装
+          |---drawer 抽屉组件封装
+          |---scrollPanel 多标签滑动组件封装
+        |---directive 指令扩展
+          |---perission 局部权限扩展  
+        |---lang多语言数据  
         |---mock动态数据模拟接口
           |---data 模拟数据
+        |---vendor  Excel相关js包  
         |---views各个模块
           |---index    index模块
             |---pages 组件
@@ -56,8 +67,11 @@ If you find it useful, please start this project ~
           |---error       error404模块
             |---index.vue
          |---vuex    
+           |---lang 国际化状态
+           |---layout 布局状态
            |---role 角色状态
            |---router 路由状态
+           |---tagview 标签页状态
 ```
 ## Project setup
 ```
