@@ -96,8 +96,9 @@ export default {
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = ['姓名', '性别', '年龄', '生日', '地址']
         const filterVal = ['name', 'sex', 'age', 'birth', 'addr']
-        const list = this.users
+        const list = this.sels.length>0 ? this.sels : this.users //  若是多选择获取选择数据否则是全部
         const data = this.formatJson(filterVal, list)
+        console.log(data)
         excel.export_json_to_excel({
           header: tHeader,
           data,
