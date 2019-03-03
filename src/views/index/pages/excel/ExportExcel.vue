@@ -52,7 +52,7 @@ import { Util } from '@common/util'
 import { getUserListPage } from '@api/api'
 
 export default {
-  name: 'ExcelExport',
+  name: 'ExportExcel',
   components: {
   	
   },

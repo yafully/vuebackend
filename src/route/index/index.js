@@ -24,7 +24,8 @@ const RolePage = () => import('@views/index/pages/role/RolePage')
 const RoleUser = () => import('@views/index/pages/role/RoleUser')
 const Featrues = () => import('@views/index/pages/role/Featrues')
 //Excel Import & Export
-const ExcelExport = () => import('@views/index/pages/excel/Export')
+const ExportExcel = () => import('@views/index/pages/excel/ExportExcel')
+const ImportExcel = () => import('@views/index/pages/excel/ImportExcel')
 
 Vue.use(VueRouter)
 let routeName = def.routeName
@@ -290,17 +291,30 @@ let addRouter = [
         children: [
             { 
                 id: 'f4001',
-                path: '/export', 
-                component: ExcelExport, 
+                path: '/export-excel', 
+                component: ExportExcel, 
                 name: routeName.exportExcel,
                 iconCls: 'el-icon-export',
                 meta: {
-                    modName: 'ExcelExport',
+                    modName: 'ExportExcel',
                     role: ['superAdmin','admin'],
                     title: routeName.exportExcel
                 },
                 children: []
-            }        
+            },
+            { 
+                id: 'f4002',
+                path: '/import-excel', 
+                component: ImportExcel, 
+                name: routeName.importExcel,
+                iconCls: 'el-icon-export',
+                meta: {
+                    modName: 'ImportExcel',
+                    role: ['superAdmin','admin'],
+                    title: routeName.importExcel
+                },
+                children: []
+            }       
         ]
     },
     { path: '*', redirect: '/error/404', hidden: true, name: '', children: []}
