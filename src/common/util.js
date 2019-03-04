@@ -178,8 +178,8 @@ Util.string = Util.string || {}
 
 Util.string.getRegexForTag = function(tag, contents){
 	tag = tag || ''
-	var regstr = contents ? "<" + tag + "(?!\\w)[^>]*>([\\s\\S]*?)<\/" + tag + "(?!\\w)>" : "<\/?" + tag + "([^>]+)?>",
-		reg = new RegExp(regstr, "gi")
+	var regstr = contents ? `<${tag}(?!\\w)[^>]*>([\\s\\S]*?)</${tag}(?!\\w)>`: `</?${tag}([^>]+)?>`,
+		reg = new RegExp(regstr, 'gi')
 	return reg
 };
 
@@ -193,7 +193,7 @@ Util.string.stripTags = function(source, tag, contents){
 }
 //替换所有
 Util.string.replaceAll = function(source,s1,s2,ignore) {
-	return source.replace(new RegExp(s1.replace(/([\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, function(c){return "\\" + c;}), "g"+(ignore?"i":"")), s2)
+	return source.replace(new RegExp(s1.replace(/([,!\\^${}[\]().*+?|<>\-&])/g, function(c){return '\\' + c}), 'g'+(ignore?'i':'')), s2)
 };
 // 从左截取指定长度的字串
 Util.string.left = function(source,n){

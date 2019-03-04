@@ -1,5 +1,5 @@
 <template>
-	<div class="viewBox">
+	<div class="viewBox" id="viewBox">
       <transition name="fade" mode="out-in">
         <keep-alive :include="cachedViews">
           <router-view></router-view>

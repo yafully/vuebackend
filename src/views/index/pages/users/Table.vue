@@ -55,7 +55,14 @@
 		<!--工具条-->
 		<el-col :span="24" class="toolbar">
 			<el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
-			<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" :current-page.sync="page" style="float:right;">
+			<el-pagination 
+			layout="prev, pager, next" 
+			@current-change="handleCurrentChange" 
+			:page-size="20" 
+			:total="total" 
+			:current-page.sync="page" 
+			@size-change="handleSizeChange" 
+			style="float:right;">
 			</el-pagination>
 		</el-col>
 		<!--编辑界面-->
@@ -117,6 +124,7 @@
 
 <script>
 import { Util } from '@common/util'
+import { scrollTo } from '@common/scrollTo'
 import { getUserListPage, editUser, removeUser, addUser, batchRemoveUser } from '@api/api'
 
 export default {
@@ -130,6 +138,7 @@ export default {
 			total: 0,
 			page: 1,
 			listLoading: false,
+			autoScroll:true,
 			sels: [],//列表选中列
 			//编辑部分
 			editFormVisible: false,//编辑界面是否显示
@@ -284,6 +293,14 @@ export default {
 			if (clear) this.filters.name = ''
 			this.page = val
 			this.getUsers()
+			if (this.autoScroll) {
+		        scrollTo(0, 20)
+		    }
+		},
+		handleSizeChange () {
+			if (this.autoScroll) {
+		        scrollTo(0, 20)
+		    }
 		},
 		//批量删除
 		selsChange (sels) {
