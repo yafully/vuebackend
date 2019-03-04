@@ -322,6 +322,7 @@ export default {
 	},
 	mounted () {
 		this.getUsers()
+		console.log(`移动设备:${Util.isMobile()}`)
 	}
 }
 </script>

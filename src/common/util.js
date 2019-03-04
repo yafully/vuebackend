@@ -20,6 +20,28 @@ let Util = Util || {}
  */
 Util.isDev = (process.env.NODE_ENV === 'development')
 /**
+  *
+**/
+Util.isMobile = function () {
+	var sUserAgent = navigator.userAgent.toLowerCase();
+	var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+	var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+	var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+	var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+	var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+	var bIsAndroid = sUserAgent.match(/android/i) == "android";
+	var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+	var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+	if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+	    //跳转移动端页面
+	    return true
+	} else {
+	    //跳转pc端页面
+	    return false
+	}
+}
+
+/**
  * 对目标日期对象进行格式化
  * 
  * @name formatDate.format
@@ -131,4 +153,160 @@ Util.parseDate = function (source) {
 	return new Date();
 }
 
+/**
+  * Object
+**/
+Util.object = Util.object || {}
+
+Util.object.size = function(object) {
+    var size = 0
+    for (var key in object) {
+        if (object.hasOwnProperty(key)) size++
+    }
+    return size
+}
+//删除对象指定键
+Util.object.erase = function(object, key){
+	if (object.hasOwnProperty(key)) delete object[key]
+	return object
+}
+
+/**
+  * String
+**/
+Util.string = Util.string || {}
+
+Util.string.getRegexForTag = function(tag, contents){
+	tag = tag || ''
+	var regstr = contents ? "<" + tag + "(?!\\w)[^>]*>([\\s\\S]*?)<\/" + tag + "(?!\\w)>" : "<\/?" + tag + "([^>]+)?>",
+		reg = new RegExp(regstr, "gi")
+	return reg
+};
+
+//获取标签
+Util.string.getTags = function(source, tag, contents){
+	return source.match(Util.string.getRegexForTag(tag, contents)) || []
+}
+//去除标签
+Util.string.stripTags = function(source, tag, contents){
+	return source.replace(Util.string.getRegexForTag(tag, contents), '')
+}
+//替换所有
+Util.string.replaceAll = function(source,s1,s2,ignore) {
+	return source.replace(new RegExp(s1.replace(/([\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, function(c){return "\\" + c;}), "g"+(ignore?"i":"")), s2)
+};
+// 从左截取指定长度的字串
+Util.string.left = function(source,n){
+	return source.slice(0, n)
+};
+// 从右截取指定长度的字串
+Util.string.right = function(source,n){ 
+	return source.slice(source.length - n)
+};
+/**
+  * Array
+**/
+Util.array = Util.array || {}
+/**
+ * 移除数组中的项
+ * 
+ * @name Util.array.remove
+ * @function
+ * @grammar Util.array.remove(source, match)
+ * @param {Array}
+ *            source 需要移除项的数组
+ * @param {Any}
+ *            match 要移除的项
+ * @meta standard
+ * @see Util.array.removeAt
+ * 
+ * @returns {Array} 移除后的数组
+ */
+Util.array.remove = function(source, match) {
+	if (!match) {
+		source = []
+	} else {
+		var len = source.length
+		while (len--) {
+			if (len in source && source[len] === match) {
+				source.splice(len, 1)
+			}
+		}
+	}
+	return source
+}
+/**
+ * 根据索引移除数组中的项
+ * 
+ * @name Util.array.removeAt
+ * @function
+ * @grammar Util.array.removeAt(source, index)
+ * @param {Array}
+ *            source 需要移除项的数组
+ * @param {number}
+ *            index 要移除项的索引位置
+ * @see Util.array.remove
+ * @meta standard
+ * @returns {Any} 被移除的数组项
+ */
+
+Util.array.removeAt = function(array, from, to) {  
+  var rest = array.slice((to || from) + 1 || array.length)
+  array.length = from < 0 ? array.length + from : from
+  array.push.apply(array, rest)
+  return array
+}
+/*
+//返回2个数组的交集
+*/
+Util.array.intersect = function(source,other){
+	var cpy = source.slice()
+	source.forEach(function(el,i) {
+		if (other.indexOf(el) < 0)cpy.splice(cpy.indexOf(el), 1)
+	})
+	return cpy
+}
+/*
+*向对象数组push一个元素，如果它在数组中不存在,大小写敏感
+*/
+Util.array.include =  function(source,item){
+	if (!source.includes(item)) source.push(item)
+	return source
+}
+/*
+*联合2个数组且去掉重复项
+*/
+Util.array.combine = function(source,array){
+	for (var i = 0, l = array.length; i < l; i++) Util.array.include(source,array[i])
+	return source
+}
+/*
+//返回2个数组的差集
+*/
+Util.array.differentiate = function(source,other){
+	var src = source.slice()
+	var cmp = other.slice()
+	other.forEach(function(el,i) {
+		if (src.indexOf(el) > -1) {
+			// remove from both
+			src.splice(src.indexOf(el), 1)
+			cmp.splice(cmp.indexOf(el), 1)
+		}
+	})
+	return Util.array.combine(src,cmp)
+}
+//仿Linq条件查询返回所有满足条件的数组
+//item	Object	当前回调返回的数组第index个元素
+//index	Int	可选参数,当前回调返的数组的索引
+//$.array.where(stooges,function(item,index){return item.name=="larry"})
+Util.array.where = function(source,clause) {
+	if (!clause)return
+	var len = source.length, newArray = []
+	for (var i = 0; i < len; i++) {
+		if (clause(source[i], i)) {
+			newArray[newArray.length] = source[i]
+		}
+	}
+	return newArray
+}
 export { Util }
