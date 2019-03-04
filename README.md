@@ -24,9 +24,12 @@ file-saver
 标签级别权限控制  
 缓存机制  
 数据导入、导出  
-系统引导
+系统引导  
+页面位置缓动  
+常用工具函数  
 # Todo  
-富文本编辑器
+富文本编辑器  
+分页封装
 
 If you find it useful, please start this project ~
 ```
