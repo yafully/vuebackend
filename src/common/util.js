@@ -20,7 +20,7 @@ let Util = Util || {}
  */
 Util.isDev = (process.env.NODE_ENV === 'development')
 /**
-  *
+  *判断当前终端是否为Mobile
 **/
 Util.isMobile = function () {
 	var sUserAgent = navigator.userAgent.toLowerCase();
@@ -40,7 +40,14 @@ Util.isMobile = function () {
 	    return false
 	}
 }
-
+/**
+  * 回调函数封装
+**/
+Util.fireEvent = function(fn,arg){
+	if(typeof fn !== 'function') return
+	var args = Array.isArray(arg) ? arg : [].push(arg)
+	return arg ? fn.apply(this,args) : fn.call(this)
+}
 /**
  * 对目标日期对象进行格式化
  * 
