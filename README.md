@@ -2,7 +2,7 @@
 Vue‘s Backend and Frontend Personal  
 基于VueCli3的Vue全家桶 + Element UI 多页面多路由前+后端脚手架  
 # 相关组件
-Echarts
+Echarts  
 数据由MockJS模拟  
 driver.js  
 axios  
@@ -27,6 +27,7 @@ file-saver
 系统引导  
 页面位置缓动  
 常用工具函数  
+自定义全局扩展封装  
 # Todo  
 富文本编辑器  
 分页封装
@@ -47,8 +48,10 @@ If you find it useful, please start this project ~
         |---common 公共模块目录
         |---components组件  
           |---charts 图表组件封装
-          |---drawer 抽屉组件封装
+          |---drawer 抽屉组件封装  
+          |---global 全局组件封装区   
           |---scrollPanel 多标签滑动组件封装
+          |---uploadExcel excel上传
         |---directive 指令扩展
           |---perission 局部权限扩展  
         |---lang多语言数据  
