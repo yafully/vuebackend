@@ -18,12 +18,14 @@ import { getRole } from '@api/api'
 import Mock from '../../mock'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/less/common.less'
+import Widgets from '@comp/global/' //全局扩展
 Vue.use(ElementUI, { 
   i18n: (key, value) => i18n.t(key, value)
 })
 Vue.use(require('vue-wechat-title'))
 
-Mock.bootstrap();
+Vue.use(Widgets) //注册全局扩展
+Mock.bootstrap()
 
 //获取来路判断session前置跳转页面
 router.beforeEach((to, from, next) => {
