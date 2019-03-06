@@ -5,12 +5,7 @@
 </template>
 
 <script>
-  let Util = Util || {}
-  Util.fireEvent = function(fn,arg){
-    if(typeof fn !== 'function') return
-    var args = Array.isArray(arg) ? arg : [].push(arg)
-    return arg ? fn.apply(this,args) : fn.call(this)
-  }
+
   export default{
       data(){
          return{
