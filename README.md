@@ -28,9 +28,9 @@ file-saver
 页面位置缓动  
 常用工具函数  
 自定义全局扩展封装  
+el-pagination二次封装
 # Todo  
 富文本编辑器  
-分页封装
 
 If you find it useful, please start this project ~
 ```
