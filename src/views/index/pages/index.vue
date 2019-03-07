@@ -55,7 +55,7 @@
               
               <el-tooltip class="item" effect="dark" :content="$t(`navbar.guide`)" placement="bottom">
                 <div class="tools-item">
-                  <router-link to="/guide">
+                  <router-link to="/user-guide">
                     <i class="el-icon-question"></i>
                   </router-link>
                 </div>
@@ -188,7 +188,7 @@
     },
     mounted () {
       //console.log(store.getters.routers)
-      //console.log(this.$store.state.routers)
+      //console.log(this.routers)
       //console.log(this.$router.options.routes)
       //console.log(this.$route.matched)
       //获取UserInfo

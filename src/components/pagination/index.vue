@@ -52,11 +52,11 @@ export default {
 	},
 	methods: {
 		handleSizeChange (val) {
-			console.log('页数改变')
+			//console.log('页数改变')
 			this.$emit('pagechange1',{ page: this.currentPage, limit: this.pageSize })
 		},
 		handleCurrentChange (val) {
-			console.log('页码改变')
+			//console.log('页码改变')
 			this.$emit('pagechange',{ page: val, limit: this.pageSize })
 		}
 	}

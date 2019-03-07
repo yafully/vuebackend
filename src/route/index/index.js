@@ -95,11 +95,11 @@ let defaultRouter = [
     path: '/guide',
     name:'',
     component: Layout,
-    redirect: '/guide/index',
+    redirect: '/user-guide',
     hidden: true,
     children: [
       {
-        path: '/index',
+        path: '/user-guide',
         component: Guide,
         name: routeName.guide,
         meta: { 
@@ -316,8 +316,9 @@ let addRouter = [
                 children: []
             }       
         ]
-    },
-    { path: '*', redirect: '/error/404', hidden: true, name: '', children: []}
+    }
+    //,
+    //{ path: '*', redirect: '/error/404', hidden: true, name: '', children: []}
 ]
 
 export default new VueRouter({
