@@ -5,7 +5,7 @@
 </template>
 
 <script>
-
+  import {Util} from '@common/util.js'
   export default{
       data(){
          return{

@@ -13,7 +13,7 @@
 					<el-button type="primary" icon="el-icon-plus" @click="handleAdd">新增</el-button>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" icon="el-icon-refresh" @click="handleCurrentChange(1,true)">清除</el-button>
+					<el-button type="primary" icon="el-icon-refresh" @click="clearList(1,true)">清除</el-button>
 				</el-form-item>
 				<el-form-item>
 					<el-button type="primary" @click="toggleSelection([users[1], users[2]])">自定义选中2-3</el-button>
@@ -55,7 +55,7 @@
 		<!--工具条-->
 		<el-col :span="24" class="toolbar">
 			<el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
-			<el-pagination 
+			<!-- <el-pagination 
 			layout="prev, pager, next" 
 			@current-change="handleCurrentChange" 
 			:page-size="20" 
@@ -63,7 +63,8 @@
 			:current-page.sync="page" 
 			@size-change="handleSizeChange" 
 			style="float:right;">
-			</el-pagination>
+			</el-pagination> -->
+			<pagination :pageSize="20" :total="pagination.total" :page="pagination.page" @pagechange="getUsers"></pagination>
 		</el-col>
 		<!--编辑界面-->
 		<el-dialog title="编辑用户" :visible.sync="editFormVisible" :append-to-body="true" :close-on-click-modal="false">
@@ -126,7 +127,7 @@
 import { Util } from '@common/util'
 import { scrollTo } from '@common/scrollTo'
 import { getUserListPage, editUser, removeUser, addUser, batchRemoveUser } from '@api/api'
-
+import Pagination from '@comp/pagination/'
 export default {
 	name: 'Table',
 	data () {
@@ -135,8 +136,10 @@ export default {
 				name: ''
 			},
 			users: [],
-			total: 0,
-			page: 1,
+			pagination: {
+				total: 0,
+				page: 1
+			},
 			listLoading: false,
 			autoScroll:true,
 			sels: [],//列表选中列
@@ -177,22 +180,25 @@ export default {
 		}
 	},
 	components: {
-		
+		Pagination
 	},
 	methods: {
 		//获取角色列表
-		getUsers () {
+		getUsers (p) {
+			
 			let para = {
-				page: this.page,
+				page: Object.prototype.toString.call(p) === "[object Object]" ? p.page : this.pagination.page,//如果不是传入的对象则取默认值
 				name: this.filters.name
 			}
 			this.listLoading = true
 			//console.log(para)
 			getUserListPage(para).then((res) => {
-				this.total = res.data.total
+				this.pagination.total = res.data.total
 				this.users = res.data.users
 				this.listLoading = false
-				
+				if (this.autoScroll) {
+			        scrollTo(0, 10)
+			    }
 			})
 		},
 		//性别显示转换
@@ -288,16 +294,13 @@ export default {
 				}
 			})
 		},
-		//翻页
-		handleCurrentChange (val, clear) {
+		//清除
+		clearList (val, clear) {
+			if(this.filters.name === '') return
 			if (clear) this.filters.name = ''
-			this.page = val
+			this.pagination.page = val
+		
 			this.getUsers()
-			if (this.autoScroll) {
-		        scrollTo(0, 20)
-		    }
-		},
-		handleSizeChange () {
 			if (this.autoScroll) {
 		        scrollTo(0, 20)
 		    }

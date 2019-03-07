@@ -28,7 +28,7 @@ export function scrollTo (to = 0, step = 4, callback) {
 	
 	let start = el.scrollTop
 	Math.easeout(start, to, step, function (value) { 
-		console.log(value)
+		//console.log(value)
 		el.scrollTop = value
 		//el = null
 	})

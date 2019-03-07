@@ -10,7 +10,7 @@
 					<el-button type="primary" icon="el-icon-search" v-on:click="getInfo">查询</el-button>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" icon="el-icon-refresh" @click="handleCurrentChange(1,true)">清除</el-button>
+					<el-button type="primary" icon="el-icon-refresh" @click="clearList(1,true)">清除</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
@@ -79,18 +79,22 @@
 		</el-table>
 		<!--工具条-->
 		<el-col :span="24" class="toolbar">
-			<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" :current-page.sync="page" style="float:right;">
-			</el-pagination>
+<!-- 			<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" :current-page.sync="page" style="float:right;">
+			</el-pagination> -->
+
+			<pagination :pageSize="20" :total="pagination.total" :page="pagination.page" @pagechange="getInfo"></pagination>
 		</el-col>
 	</div>
 </template>
 
 <script>
 import { getTelephone, removeTelephone } from '@api/api';
+import { scrollTo } from '@common/scrollTo'
+import Pagination from '@comp/pagination/'
 export default {
 	name: 'Contacts',
 	components: {
-		
+		Pagination
 	},
 	data () {
 		return {
@@ -99,25 +103,38 @@ export default {
 		  filters: {
 		  	name: ''
 		  },
-		  total: 0,
-		  page: 1
+		  pagination: {
+				total: 0,
+				page: 1
+			}
 		}
 	},
 	methods: {
 		//翻页
-		handleCurrentChange (val, clear = false) {
+		// handleCurrentChange (val, clear = false) {
+		// 	if (clear) this.filters.name = ''
+		// 	this.page = val
+		// 	this.getInfo()
+		// },
+		//清除
+		clearList (val, clear = false) {
+			if(this.filters.name === '') return
 			if (clear) this.filters.name = ''
-			this.page = val
+			this.pagination.page = val
+		
 			this.getInfo()
+			if (this.autoScroll) {
+		        scrollTo(0, 20)
+		    }
 		},
-		getInfo () {
+		getInfo (p) {
 			let para = {
-				page: this.page,
+				page: Object.prototype.toString.call(p) === "[object Object]" ? p.page : this.pagination.page,
 				name: this.filters.name
 			}
 			this.loading = true
 			getTelephone(para).then((res) => {
-				this.total = res.data.total
+				this.pagination.total = res.data.total
 				this.telephones = res.data.telephones
 				this.loading = false
 			});
