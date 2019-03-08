@@ -1,25 +1,27 @@
 <template>
 	<div>
 		<!--工具条-->
-		<el-col :span="24" class="toolbar">
-			<el-form :inline="true" :model="filters">
-				<el-form-item>
-					<el-input v-model="filters.name" placeholder="姓名"></el-input>
-				</el-form-item>
-				<el-form-item>
-					<el-button type="primary" icon="el-icon-search" @click="getUsers">查询</el-button>
-				</el-form-item>
-				<el-form-item>
-					<el-button type="primary" icon="el-icon-plus" @click="handleAdd">新增</el-button>
-				</el-form-item>
-				<el-form-item>
-					<el-button type="primary" icon="el-icon-refresh" @click="clearList(1,true)">清除</el-button>
-				</el-form-item>
-				<el-form-item>
-					<el-button type="primary" @click="toggleSelection([users[1], users[2]])">自定义选中2-3</el-button>
-				</el-form-item>
-			</el-form>
-		</el-col>
+		<pin :pinTop="74" :zIndex="5" container="viewBox">
+			<el-col :span="24" class="toolbar" id="toolbal">
+				<el-form :inline="true" :model="filters">
+					<el-form-item>
+						<el-input v-model="filters.name" placeholder="姓名"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-button type="primary" icon="el-icon-search" @click="getUsers">查询</el-button>
+					</el-form-item>
+					<el-form-item>
+						<el-button type="primary" icon="el-icon-plus" @click="handleAdd">新增</el-button>
+					</el-form-item>
+					<el-form-item>
+						<el-button type="primary" icon="el-icon-refresh" @click="clearList(1,true)">清除</el-button>
+					</el-form-item>
+					<el-form-item>
+						<el-button type="primary" @click="toggleSelection([users[1], users[2]])">自定义选中2-3</el-button>
+					</el-form-item>
+				</el-form>
+			</el-col>
+		</pin>
 		<!--列表-->
 		<el-table :data="users" @selection-change="selsChange" highlight-current-row v-loading="listLoading" style="width: 100%;" ref="multipleTable">
 			<el-table-column type="selection" width="55">
@@ -128,6 +130,7 @@ import { Util } from '@common/util'
 import { scrollTo } from '@common/scrollTo'
 import { getUserListPage, editUser, removeUser, addUser, batchRemoveUser } from '@api/api'
 import Pagination from '@comp/pagination/'
+import Pin from '@comp/pin/'
 export default {
 	name: 'Table',
 	data () {
@@ -180,7 +183,8 @@ export default {
 		}
 	},
 	components: {
-		Pagination
+		Pagination,
+		Pin
 	},
 	methods: {
 		//获取角色列表
@@ -343,6 +347,8 @@ export default {
 	mounted () {
 		this.getUsers()
 		console.log(`移动设备:${Util.isMobile()}`)
+		// console.log(Util.getCoordinates('toolbal'))
+		// console.log(this.$parent.$el)
 	}
 }
 </script>
