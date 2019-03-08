@@ -40,3 +40,6 @@ export const addAdmin = params => { return axios.get(`${base}/role/addadmin`, { 
 export const editAdmin = params => { return axios.get(`${base}/role/editadmin`, { params: params })}
 //管理员删除
 export const removeAdmin = params => { return axios.get(`${base}/role/removeadmin`, { params: params })}
+
+//查找用户
+export const userSearch = params => { return axios.get(`${base}/search/user`, { params: params })}

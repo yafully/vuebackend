@@ -45,16 +45,16 @@ export default {
       isSticky: false
     }
   },
-  mounted() {
+  mounted () {
   	this.containerEl = this.container ? document.getElementById(this.container) : window
     this.height = Util.getCoordinates(this.$el).height
     this.containerEl.addEventListener('scroll', this.handleScroll)
     //window.addEventListener('resize', this.handleReize)
   },
-  activated() {
+  activated () {
     this.handleScroll()
   },
-  destroyed() {
+  destroyed () {
     this.containerEl.removeEventListener('scroll', this.handleScroll)
     this.containerEl.removeEventListener('resize', this.handleReize)
   },

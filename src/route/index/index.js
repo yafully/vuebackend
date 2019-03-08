@@ -26,6 +26,8 @@ const Featrues = () => import('@views/index/pages/role/Featrues')
 //Excel Import & Export
 const ExportExcel = () => import('@views/index/pages/excel/ExportExcel')
 const ImportExcel = () => import('@views/index/pages/excel/ImportExcel')
+//Article
+const CreateArticle = () => import('@views/index/pages/article/create')
 
 Vue.use(VueRouter)
 let routeName = def.routeName
@@ -315,6 +317,33 @@ let addRouter = [
                 },
                 children: []
             }       
+        ]
+    }
+    ,
+    {
+        id: 'f5000',
+        path: '/aticle',
+        component: Layout,
+        name: routeName.aticle,
+        iconCls: 'el-icon-excel',//图标样式class
+        meta: {
+            role: ['superAdmin','admin'],
+            title: routeName.aticle
+        },
+        children: [
+            { 
+                id: 'f5001',
+                path: '/create-aticle', 
+                component: CreateArticle, 
+                name: routeName.createArticle,
+                iconCls: 'el-icon-export',
+                meta: {
+                    modName: 'ExportExcel',
+                    role: ['superAdmin','admin'],
+                    title: routeName.createArticle
+                },
+                children: []
+            }  
         ]
     }
     //,

@@ -41,6 +41,9 @@ export default {
     level3: 'level3',
     excel: 'excel',
     exportExcel: 'exportExcel',
-    importExcel: 'importExcel'
+    importExcel: 'importExcel',
+    aticle: 'aticle',
+    createArticle: 'createArticle',
+    editArticle: 'editArticle'
   }
 }

@@ -23,15 +23,15 @@ Util.isDev = (process.env.NODE_ENV === 'development')
   *判断当前终端是否为Mobile
 **/
 Util.isMobile = function () {
-	var sUserAgent = navigator.userAgent.toLowerCase();
-	var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
-	var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
-	var bIsMidp = sUserAgent.match(/midp/i) == "midp";
-	var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
-	var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
-	var bIsAndroid = sUserAgent.match(/android/i) == "android";
-	var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
-	var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+	let sUserAgent = navigator.userAgent.toLowerCase()
+	let bIsIpad = sUserAgent.match(/ipad/i) == "ipad"
+	let bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os"
+	let bIsMidp = sUserAgent.match(/midp/i) == "midp"
+	let bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4"
+	let bIsUc = sUserAgent.match(/ucweb/i) == "ucweb"
+	let bIsAndroid = sUserAgent.match(/android/i) == "android"
+	let bIsCE = sUserAgent.match(/windows ce/i) == "windows ce"
+	let bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile"
 	if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
 	    //跳转移动端页面
 	    return true
@@ -41,11 +41,20 @@ Util.isMobile = function () {
 	}
 }
 /**
+  *返回一个16位的随机ID
+**/
+Util.GUID = function () {
+	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+		let r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8)
+		return v.toString(16)
+	})	
+}
+/**
   * 回调函数封装
 **/
 Util.fireEvent = function(fn,arg){
 	if(typeof fn !== 'function') return
-	var args = Array.isArray(arg) ? arg : [].push(arg)
+	let args = Array.isArray(arg) ? arg : [].push(arg)
 	return arg ? fn.apply(this,args) : fn.call(this)
 }
 /**
