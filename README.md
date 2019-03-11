@@ -11,7 +11,8 @@ vue-i18n
 vue-wechat-title  
 js-cookie  
 xlsx  
-file-saver
+file-saver  
+tinymce
 
 各页面入口文件为app.js,模版文件为view下面各模块文件夹内的任意html文件  
 # 兼容低版本的IE
