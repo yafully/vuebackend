@@ -12,7 +12,7 @@
                   <span class="menu-title" v-text="$t(`routeName.${item.name}`)"></span>
                 </template>
 
-                <menu-tree :menuData="item.children"></menu-tree>
+                <menu-tree :menuData="item.children" :base-path="item.path"></menu-tree>
               </el-submenu>
               <el-menu-item v-if="item.leaf&&item.children.length>0 && !item.hidden" :index="item.children[0].path" :key="'mi'+index">
                 <i :class="item.iconCls"></i>
@@ -55,7 +55,7 @@
               
               <el-tooltip class="item" effect="dark" :content="$t(`navbar.guide`)" placement="bottom">
                 <div class="tools-item">
-                  <router-link to="/user-guide">
+                  <router-link to="/guide/user-guide">
                     <i class="el-icon-question"></i>
                   </router-link>
                 </div>

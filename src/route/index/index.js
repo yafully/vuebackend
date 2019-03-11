@@ -28,6 +28,7 @@ const ExportExcel = () => import('@views/index/pages/excel/ExportExcel')
 const ImportExcel = () => import('@views/index/pages/excel/ImportExcel')
 //Article
 const CreateArticle = () => import('@views/index/pages/article/create')
+const ArticleList = () => import('@views/index/pages/article/list')
 
 Vue.use(VueRouter)
 let routeName = def.routeName
@@ -44,6 +45,7 @@ let routeName = def.routeName
     noCache: true                if true, the page will no be cached(default is false)
     noClose: false               if true, The TabTags item will not show close btn 
     modName: String              The route component name, this will used in vuex cachedViews 
+    注意子路由若是绝对路径则不会显示父路由层级
   }    
 **/
 let defaultRouter = [
@@ -97,11 +99,11 @@ let defaultRouter = [
     path: '/guide',
     name:'',
     component: Layout,
-    redirect: '/user-guide',
+    redirect: '/guide/user-guide',
     hidden: true,
     children: [
       {
-        path: '/user-guide',
+        path: 'user-guide',
         component: Guide,
         name: routeName.guide,
         meta: { 
@@ -323,6 +325,7 @@ let addRouter = [
     {
         id: 'f5000',
         path: '/aticle',
+        redirect: '/aticle/list',
         component: Layout,
         name: routeName.aticle,
         iconCls: 'el-icon-excel',//图标样式class
@@ -333,17 +336,30 @@ let addRouter = [
         children: [
             { 
                 id: 'f5001',
-                path: '/create-aticle', 
+                path: 'create', 
                 component: CreateArticle, 
                 name: routeName.createArticle,
                 iconCls: 'el-icon-export',
                 meta: {
-                    modName: 'ExportExcel',
+                    modName: 'ArticleCreate',
                     role: ['superAdmin','admin'],
                     title: routeName.createArticle
                 },
                 children: []
-            }  
+            },
+            { 
+                id: 'f5002',
+                path: 'list', 
+                component: ArticleList, 
+                name: routeName.articleList,
+                iconCls: 'el-icon-export',
+                meta: {
+                    modName: 'ArticleList',
+                    role: ['superAdmin','admin'],
+                    title: routeName.articleList
+                },
+                children: []
+            } 
         ]
     }
     //,

@@ -44,6 +44,7 @@ export default {
     importExcel: 'Import Excel',
     aticle: 'Aticle Manage',
     createArticle: 'Create Article',
-    editArticle: 'Edit Article'
+    editArticle: 'Edit Article',
+    articleList: 'Article List'
   }
 }

@@ -9,7 +9,7 @@
           <menu-tree :menuData="child.children"></menu-tree>
         </el-submenu>
 		
-		<el-menu-item v-else :index="child.path" :key="child.name">
+		    <el-menu-item v-else :index="resolvePath(child.path)" :key="child.name">
           <i :class="child.iconCls"></i>
           <span class="menu-title" v-text="$t(`routeName.${child.name}`)"></span>
         </el-menu-item>
@@ -18,8 +18,23 @@
 </template>
 
 <script>
+import path from 'path'
 export default {
   name: 'menuTree',
-  props: ['menuData']
+  props: {
+    menuData: {
+      type: Object,
+      required: true
+    },
+    basePath: {
+      type: String,
+      default: ''
+    }
+  },
+  methods: {
+    resolvePath(routePath) {
+      return path.resolve(this.basePath, routePath)
+    }
+  }
 }
 </script>

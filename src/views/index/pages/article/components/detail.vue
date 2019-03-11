@@ -8,9 +8,9 @@
     <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
 		<pin :pinTop="74" :zIndex="5" container="viewBox">
 	      <el-col :span="24" class="toolbar">
-	        <el-button v-loading="loading" style="margin-left: 10px;" type="success" @click="submitForm">发布
+	        <el-button v-loading="loading" style="margin-left: 10px;" type="primary" @click="submitForm">发布
 	        </el-button>
-	        <el-button v-loading="loading" type="warning">草稿</el-button>
+	        <el-button v-loading="loading" type="primary">草稿</el-button>
 	      </el-col>
 		</pin>
       <div class="createPost-main-container">
