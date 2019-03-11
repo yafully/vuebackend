@@ -43,3 +43,6 @@ export const removeAdmin = params => { return axios.get(`${base}/role/removeadmi
 
 //查找用户
 export const userSearch = params => { return axios.get(`${base}/search/user`, { params: params })}
+
+//文章列表
+export const getArticleList = params => { return axios.get(`${base}/article/list`, { params: params })}

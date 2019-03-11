@@ -4,16 +4,16 @@
  * @date    2019-03-11 15:30:47
  */
 import Mock from 'mockjs'
-const ArticleList = []
+const Articles = []
 const count = 100
 
 const baseContent = '<p>我是测试数据我是测试数据</p><p><img src="http://59.175.109.211:8081/awbridal/media/ipbanners/_1920x800-0306_1.jpg"></p>'
 const image_uri = 'http://59.175.109.211:8081/awbridal/media/ipbanners/_1920x800-0306_1.jpg'
 
 for (let i = 0; i < count; i++) {
-  ArticleList.push(Mock.mock({
+  Articles.push(Mock.mock({
     id: '@increment',
-    timestamp: +Mock.Random.date('T'),
+    timestamp: Mock.Random.date(),
     author: '@first',
     reviewer: '@first',
     title: '@title(5, 10)',
@@ -30,3 +30,5 @@ for (let i = 0; i < count; i++) {
     platforms: ['a-platform']
   }))
 }
+
+export { Articles }

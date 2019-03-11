@@ -359,7 +359,22 @@ let addRouter = [
                     title: routeName.articleList
                 },
                 children: []
-            } 
+            },
+            {
+                id: '',
+                path: 'edit/:id(\\d+)',
+                component: CreateArticle,
+                name: routeName.editArticle,
+                hidden: true,
+                meta: { 
+                    modName: 'ArticleList',
+                    title: routeName.editArticle, 
+                    role: ['superAdmin','admin'],
+                    noCache: true 
+                },
+                children: []
+                
+            }
         ]
     }
     //,

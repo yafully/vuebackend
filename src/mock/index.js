@@ -10,11 +10,13 @@ import { LoginUsers, Users } from './data/user'//用户数据
 import { Roles } from './data/role'//角色数据
 //const Telephone = () => import('./data/telephone')
 import { Telephone } from './data/telephone';
+
+import { Articles } from './data/article.js';
 let _Users = Users
 let _Telephone = Telephone
 let _Roles = Roles
 let _LoginUsers = LoginUsers
-
+let _Articles = Articles
 export default {
 	bootstrap () {
 		let mock = new MockAdapter(axios)
@@ -351,24 +353,24 @@ export default {
 	      })
 	    })
 	    // 获取用户列表
-		mock.onGet('/search/user').reply(config => {
+		mock.onGet('/article/list').reply(config => {
 	      let {name} = config.params
-	      let mockUsers = _Users.filter(user => {
+	      let mockArticles = _Articles.filter(user => {
 	        if (name && user.name.indexOf(name) == -1) return false
 	        return true
 	      })
-	      console.log(name)
-	      console.log(mockUsers)
+	      let total = mockArticles.length;
 	      return new Promise((resolve, reject) => {
 	        setTimeout(() => {
 	          resolve([200, {
-	            users: mockUsers
+	            articles: mockArticles,
+	            total: total
 	          }])
 	        }, 1000)
 	      })
 	    })
 
 	    //获取文章列表
-	    
+
 	}
 }
