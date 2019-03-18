@@ -19,7 +19,7 @@ import tinymce from 'tinymce/tinymce'
 import { Util } from '@common/util.js'
 import plugins from './plugins'
 import toolbar from './toolbar'
-
+import axios from 'axios'
 export default {
   name: 'Tinymce',
   //components: { editorImage },
